@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An Automated Voice Assistant Generation Framework from GUI Test Cases Reusing">
+    
+    <link rel="canonical" href="https://nontestname.github.io/ava-gen/old/design_actionplan/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Action Plan Client-Side Design - AVA-Gen</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="../..">AVA-Gen</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../running_example/">Running Example</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../runtime_server_client/">Runtime Server & Client</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../cli/">CLI Guide</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../tool_paper/">Tool Paper & Evaluation</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/nontestname/ava-gen"><i class="fab fa-github"></i> GitHub</a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#action-plan-client-side-design">Action Plan Client-Side Design</a></li>
+            <li class="second-level"><a href="#1-example-server-json-per-app">1. Example Server JSON (per app)</a></li>
+                
+            <li class="second-level"><a href="#2-top-level-container-appactionplans">2. Top-Level Container: AppActionPlans</a></li>
+                
+            <li class="second-level"><a href="#3-actionplan">3. ActionPlan</a></li>
+                
+            <li class="second-level"><a href="#4-actionstep">4. ActionStep</a></li>
+                
+            <li class="second-level"><a href="#5-stepmatcher">5. StepMatcher</a></li>
+                
+            <li class="second-level"><a href="#6-actiontype-enum">6. ActionType Enum</a></li>
+                
+            <li class="second-level"><a href="#7-how-the-client-uses-these-classes">7. How the Client Uses These Classes</a></li>
+                
+                <li class="third-level"><a href="#71-loading-action-plans">7.1 Loading Action Plans</a></li>
+                <li class="third-level"><a href="#72-executing-a-va-method-via-actionplan">7.2 Executing a VA Method via ActionPlan</a></li>
+                <li class="third-level"><a href="#73-relationship-to-existing-client-pieces">7.3 Relationship to Existing Client Pieces</a></li>
+            <li class="second-level"><a href="#8-summary">8. Summary</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="action-plan-client-side-design">Action Plan Client-Side Design<a class="headerlink" href="#action-plan-client-side-design" title="Permanent link">&para;</a></h1>
+<p>This document captures the client-side data model for executing <strong>Action Plans</strong> generated by the Test2VA server.</p>
+<p>The goal: instead of hard-coded, per-app Java methods, the Android client executes a <strong>JSON-defined action plan</strong> composed of primitive UI actions (click, input, scroll, etc.) targeting nodes via <code>NodeQuery</code>.</p>
+<hr />
+<h2 id="1-example-server-json-per-app">1. Example Server JSON (per app)<a class="headerlink" href="#1-example-server-json-per-app" title="Permanent link">&para;</a></h2>
+<p>Example file: <code>hu.vmiklos.plees_tracker_actionplan.json</code></p>
+<pre class="highlight"><code class="language-json">{
+  "app_id": "hu.vmiklos.plees_tracker",
+  "action_plans": {
+    "accessStatistics": {
+      "method_name": "accessStatistics",
+      "steps": [
+        {
+          "action": "sleep",
+          "matchers": [],
+          "text": null,
+          "millis": 1000,
+          "node_query": null
+        },
+        {
+          "action": "click",
+          "matchers": [
+            { "type": "contentDescription", "value": "More options" }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withContentDescription(\"More options\")"
+        }
+      ]
+    }
+  }
+}</code></pre>
+<p><strong>Notes</strong></p>
+<ul>
+<li><code>"app_id"</code> identifies the target Android app.</li>
+<li><code>"action_plans"</code> is a map: <code>VA method name -&gt; ActionPlan</code>.</li>
+<li>Each <code>ActionPlan</code> contains a list of primitive <code>steps</code>.</li>
+<li>Each <code>step</code> has an <code>action</code> (sleep, click, etc.), optional <code>matchers</code>, <code>text</code>, <code>millis</code>, and an optional <code>node_query</code> string.</li>
+</ul>
+<hr />
+<h2 id="2-top-level-container-appactionplans">2. Top-Level Container: <code>AppActionPlans</code><a class="headerlink" href="#2-top-level-container-appactionplans" title="Permanent link">&para;</a></h2>
+<p>Represents all action plans for a <strong>single app</strong>.</p>
+<p><strong>Fields</strong></p>
+<ul>
+<li><code>String appId</code><br />
+  maps from JSON <code>"app_id"</code></li>
+<li><code>Map&lt;String, ActionPlan&gt; actionPlans</code><br />
+  maps from JSON <code>"action_plans"</code>  </li>
+<li>key: VA method name, e.g. <code>"accessStatistics"</code>  </li>
+<li>value: corresponding <code>ActionPlan</code></li>
+</ul>
+<p><strong>Purpose</strong></p>
+<ul>
+<li>Loaded once when the client opens the per-app JSON file.</li>
+<li>Cached by <code>appId</code> so that subsequent requests for the same app do not re-parse JSON.</li>
+<li>Provides a lookup method like <code>getPlanForMethod(String methodName)</code>.</li>
+</ul>
+<hr />
+<h2 id="3-actionplan">3. <code>ActionPlan</code><a class="headerlink" href="#3-actionplan" title="Permanent link">&para;</a></h2>
+<p>Represents one VA method’s plan (e.g., <code>accessStatistics</code>).</p>
+<p><strong>Fields</strong></p>
+<ul>
+<li><code>String methodName</code>  </li>
+<li>from JSON <code>"method_name"</code></li>
+<li><code>List&lt;ActionStep&gt; steps</code>  </li>
+<li>from JSON <code>"steps"</code></li>
+</ul>
+<p><strong>Optional Extensions (Future)</strong></p>
+<ul>
+<li><code>String description</code>  </li>
+<li><code>String planId</code>  </li>
+<li><code>long createdAt</code>  </li>
+</ul>
+<p>These are not in the current JSON, but the model can easily grow to include them if the server starts emitting additional metadata.</p>
+<p><strong>Behavior</strong></p>
+<ul>
+<li><code>boolean isEmpty()</code> convenience helper.</li>
+<li><code>String toString()</code> for logging.</li>
+</ul>
+<hr />
+<h2 id="4-actionstep">4. <code>ActionStep</code><a class="headerlink" href="#4-actionstep" title="Permanent link">&para;</a></h2>
+<p>Represents a single primitive UI operation in a plan.</p>
+<p><strong>Fields</strong></p>
+<ul>
+<li><code>String action</code> (raw)  </li>
+<li>from JSON <code>"action"</code> (e.g., <code>"sleep"</code>, <code>"click"</code>, <code>"input_text"</code>)</li>
+<li>mapped lazily to an enum <code>ActionType</code> for type safety.</li>
+<li><code>List&lt;StepMatcher&gt; matchers</code>  </li>
+<li>from JSON <code>"matchers"</code></li>
+<li><code>String text</code> (nullable)  </li>
+<li>from JSON <code>"text"</code> (e.g., input text for <code>INPUT_TEXT</code>)</li>
+<li><code>Long millis</code> (nullable)  </li>
+<li>from JSON <code>"millis"</code> (e.g., sleep time)</li>
+<li><code>String nodeQueryExpr</code> (nullable)  </li>
+<li>from JSON <code>"node_query"</code>  </li>
+<li>text form of a <code>NodeQuery</code>, e.g. <code>withContentDescription("More options")</code></li>
+</ul>
+<p><strong>Derived / Client-Only Fields</strong></p>
+<ul>
+<li><code>NodeQuery nodeQuery</code> (transient)  </li>
+<li>constructed client-side by parsing <code>nodeQueryExpr</code> or synthesizing from <code>matchers</code>.</li>
+<li><code>ActionType actionType</code> (transient)  </li>
+<li>enum wrapper around <code>action</code> with logic like <code>requiresNode()</code>.</li>
+</ul>
+<p><strong>Example Responsibilities</strong></p>
+<ul>
+<li><code>ActionType getActionType()</code> → maps raw string to enum.</li>
+<li><code>boolean requiresTargetNode()</code> → delegate to <code>ActionType.requiresNode()</code>.</li>
+</ul>
+<hr />
+<h2 id="5-stepmatcher">5. <code>StepMatcher</code><a class="headerlink" href="#5-stepmatcher" title="Permanent link">&para;</a></h2>
+<p>Represents one element in the <code>"matchers"</code> array.</p>
+<p><strong>Fields</strong></p>
+<ul>
+<li><code>String type</code>  </li>
+<li>from JSON <code>"type"</code> (e.g., <code>"contentDescription"</code>, <code>"text"</code>, <code>"id"</code>)</li>
+<li><code>String value</code>  </li>
+<li>from JSON <code>"value"</code></li>
+</ul>
+<p><strong>Intended Mapping to NodeQuery</strong></p>
+<ul>
+<li><code>type = "contentDescription"</code> → <code>withContentDescription(value)</code>  </li>
+<li><code>type = "text"</code> → <code>withText(value)</code>  </li>
+<li><code>type = "id"</code> → <code>withId(value)</code>  </li>
+</ul>
+<p>This allows two strategies for building <code>NodeQuery</code> on the client:</p>
+<ol>
+<li>Parse <code>nodeQueryExpr</code> string into a <code>NodeQuery</code> AST, <strong>or</strong></li>
+<li>Ignore <code>nodeQueryExpr</code> and rebuild the <code>NodeQuery</code> from the list of <code>StepMatcher</code> objects.</li>
+</ol>
+<p>The design supports either or both approaches.</p>
+<hr />
+<h2 id="6-actiontype-enum">6. <code>ActionType</code> Enum<a class="headerlink" href="#6-actiontype-enum" title="Permanent link">&para;</a></h2>
+<p>Client-side enum for known <code>action</code> values. The raw strings must match what the server/action plan parser emits.</p>
+<p>Example members:</p>
+<ul>
+<li><code>SLEEP("sleep", false)</code>  </li>
+<li><code>CLICK("click", true)</code>  </li>
+<li><code>INPUT_TEXT("input_text", true)</code>  </li>
+<li><code>SCROLL("scroll", true)</code>  </li>
+<li><code>GLOBAL_BACK("global_back", false)</code>  </li>
+<li><code>UNKNOWN("unknown", false)</code>  </li>
+</ul>
+<p>Each enum value can carry:</p>
+<ul>
+<li><code>String raw</code> → exact string used in JSON.</li>
+<li><code>boolean requiresNode</code> → whether an <code>AccessibilityNodeInfo</code> target is mandatory.</li>
+</ul>
+<p>Helper:</p>
+<ul>
+<li><code>static ActionType fromRaw(String raw)</code> → maps incoming JSON to enum.</li>
+</ul>
+<hr />
+<h2 id="7-how-the-client-uses-these-classes">7. How the Client Uses These Classes<a class="headerlink" href="#7-how-the-client-uses-these-classes" title="Permanent link">&para;</a></h2>
+<h3 id="71-loading-action-plans">7.1 Loading Action Plans<a class="headerlink" href="#71-loading-action-plans" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Read per-app JSON (e.g., from assets, local storage, or server cache).</li>
+<li>Deserialize to <code>AppActionPlans</code> (e.g., using Gson).</li>
+<li>Cache <code>AppActionPlans</code> by <code>appId</code>.</li>
+</ol>
+<pre class="highlight"><code class="language-java">String json = loadFromAssets("hu.vmiklos.plees_tracker_actionplan.json");
+AppActionPlans appPlans = AppActionPlans.fromJson(json);
+
+ActionPlan plan = appPlans.getPlanForMethod("accessStatistics");</code></pre>
+<h3 id="72-executing-a-va-method-via-actionplan">7.2 Executing a VA Method via ActionPlan<a class="headerlink" href="#72-executing-a-va-method-via-actionplan" title="Permanent link">&para;</a></h3>
+<p>When the server asks the client to execute a VA method (e.g., <code>"accessStatistics"</code>):</p>
+<ol>
+<li>Look up the corresponding plan:</li>
+</ol>
+<pre class="highlight"><code class="language-java">ActionPlan plan = appPlans.getPlanForMethod("accessStatistics");</code></pre>
+<ol>
+<li>Hand it to the executor:</li>
+</ol>
+<pre class="highlight"><code class="language-java">actionPlanExecutor.executePlan(appId, plan);</code></pre>
+<ol>
+<li>
+<p>Inside <code>ActionPlanExecutor</code>:</p>
+</li>
+<li>
+<p>Loop over <code>plan.getSteps()</code>.</p>
+</li>
+<li>For each <code>ActionStep</code>:<ul>
+<li>Map <code>action</code> string to <code>ActionType</code>.</li>
+<li>Build/parse <code>NodeQuery</code> from <code>nodeQueryExpr</code> and/or <code>matchers</code>.</li>
+<li>Dispatch to <code>ActionPerformer</code>:</li>
+<li><code>performClick(node)</code>  </li>
+<li><code>performInput(node, text)</code>  </li>
+<li><code>performScroll(node, dir)</code>  </li>
+<li><code>sleep(millis)</code>  </li>
+<li><code>performBack()</code>  </li>
+<li>etc.</li>
+</ul>
+</li>
+</ol>
+<h3 id="73-relationship-to-existing-client-pieces">7.3 Relationship to Existing Client Pieces<a class="headerlink" href="#73-relationship-to-existing-client-pieces" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>ActionPlanExecutor</code> replaces the old reflection-based <code>AppTaskExecutor</code>.</li>
+<li><code>NodeQueryExecutor</code> + <code>ActionPerformer</code> reuse your existing Accessibility logic.</li>
+<li><code>TaskRegistry</code> no longer needs to know app-specific methods; at most, it can store per-app configuration (package name, entry activity, etc.).</li>
+</ul>
+<hr />
+<h2 id="8-summary">8. Summary<a class="headerlink" href="#8-summary" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Server</strong>: produces per-app JSON files describing VA methods as <strong>ActionPlans</strong>.</li>
+<li><strong>Client</strong>: uses <code>AppActionPlans</code>, <code>ActionPlan</code>, <code>ActionStep</code>, <code>StepMatcher</code>, and <code>ActionType</code> to:</li>
+<li>Parse the JSON.</li>
+<li>Map abstract steps to concrete <code>NodeQuery</code> operations.</li>
+<li>Execute them through Accessibility APIs.</li>
+</ul>
+<p>This design removes hard-coded, per-app VA methods on the client and replaces them with a generic, extensible execution engine driven entirely by server-generated Action Plans.</p></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

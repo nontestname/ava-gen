@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An Automated Voice Assistant Generation Framework from GUI Test Cases Reusing">
+    
+    <link rel="canonical" href="https://nontestname.github.io/ava-gen/old/intent_validation/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>Intent Validation Design (AVA-Gen) - AVA-Gen</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="../..">AVA-Gen</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../running_example/">Running Example</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../runtime_server_client/">Runtime Server & Client</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../cli/">CLI Guide</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../tool_paper/">Tool Paper & Evaluation</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/nontestname/ava-gen"><i class="fab fa-github"></i> GitHub</a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#intent-validation-design-ava-gen">Intent Validation Design (AVA-Gen)</a></li>
+            <li class="second-level"><a href="#1-goals">1. Goals</a></li>
+                
+            <li class="second-level"><a href="#2-data-sources-skills-intents-intentmethod-map">2. Data Sources: skills → intents + intent→method map</a></li>
+                
+            <li class="second-level"><a href="#3-core-component-intentvalidator">3. Core Component: IntentValidator</a></li>
+                
+                <li class="third-level"><a href="#31-responsibilities">3.1 Responsibilities</a></li>
+                <li class="third-level"><a href="#32-public-api">3.2 Public API</a></li>
+            <li class="second-level"><a href="#4-backend-interface-intentmatcherbackend">4. Backend Interface: IntentMatcherBackend</a></li>
+                
+                <li class="third-level"><a href="#41-openai-backend-intent-only-schema">4.1 OpenAI Backend (intent-only schema)</a></li>
+            <li class="second-level"><a href="#5-conversation-flow-integration">5. Conversation Flow Integration</a></li>
+                
+                <li class="third-level"><a href="#51-high-level-flow">5.1 High-level flow</a></li>
+            <li class="second-level"><a href="#6-intent-validation-logic-in-conversationagent">6. Intent Validation Logic in ConversationAgent</a></li>
+                
+                <li class="third-level"><a href="#61-_handle_with_intent_validator">6.1 _handle_with_intent_validator(...)</a></li>
+            <li class="second-level"><a href="#7-preventing-topic-shifts">7. Preventing Topic Shifts</a></li>
+                
+            <li class="second-level"><a href="#8-session-lifecycle-intent">8. Session Lifecycle &amp; Intent</a></li>
+                
+            <li class="second-level"><a href="#9-summary">9. Summary</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="intent-validation-design-ava-gen">Intent Validation Design (AVA-Gen)<a class="headerlink" href="#intent-validation-design-ava-gen" title="Permanent link">&para;</a></h1>
+<p>This document explains how <strong>intent validation</strong> works in the AVA-Gen runtime: how we decide whether a user’s request is supported for a given app, how we map it to a VA method, and how that drives ActionPlan selection.</p>
+<hr />
+<h2 id="1-goals">1. Goals<a class="headerlink" href="#1-goals" title="Permanent link">&para;</a></h2>
+<p>Intent validation in AVA-Gen should:</p>
+<ul>
+<li>Constrain user requests to what each app actually supports.</li>
+<li>Reuse the skills descriptions you already generate (per-method).</li>
+<li>Support multi-turn conversations while still blocking topic shifts.</li>
+<li>Be backend-agnostic (OpenAI now, other models later).</li>
+<li>Return structured results so the runtime can clearly branch:</li>
+<li>unsupported → clarification</li>
+<li>supported but ambiguous → clarification</li>
+<li>supported + concrete method → action plan</li>
+</ul>
+<hr />
+<h2 id="2-data-sources-skills-intents-intentmethod-map">2. Data Sources: skills → intents + intent→method map<a class="headerlink" href="#2-data-sources-skills-intents-intentmethod-map" title="Permanent link">&para;</a></h2>
+<p>For each app, we start from a skills description file under <code>workspace/</code>:</p>
+<pre class="highlight"><code class="language-text">workspace/
+  skills_description/
+    {app_id}_skills_description.json</code></pre>
+<p>Typical format (context_methods variant):</p>
+<pre class="highlight"><code class="language-json">{
+  "app_id": "hu.vmiklos.plees_tracker",
+  "context_methods": {
+    "accessStatistics": {
+      "description-short": "Open sleep statistics view",
+      "description-detail": "Opens the app's statistics screen to view summarized sleep data and averages."
+    }
+  }
+}</code></pre>
+<p>From this, <code>IntentInterpreter</code> derives two runtime artifacts under <code>workspace/intent/</code>:</p>
+<ol>
+<li><strong>Intent list</strong> – for GPT only</li>
+</ol>
+<pre class="highlight"><code class="language-json">[
+  {
+    "app_id": "hu.vmiklos.plees_tracker",
+    "intents": [
+      "Open sleep statistics view",
+      "Opens the app's statistics screen to view summarized sleep data and averages."
+    ],
+    "intent_summary": "Summarizes the main capabilities of the app in one short sentence."
+  }
+]</code></pre>
+<p>Stored at: <code>workspace/intent/intent_list_full.json</code></p>
+<ol>
+<li><strong>Intent → method map</strong> – for server only</li>
+</ol>
+<pre class="highlight"><code class="language-json">{
+  "hu.vmiklos.plees_tracker": {
+    "Open sleep statistics view": "accessStatistics",
+    "Opens the app's statistics screen to view summarized sleep data and averages.": "accessStatistics"
+  }
+}</code></pre>
+<p>Stored at: <code>workspace/intent/intent_method_map.json</code></p>
+<p>Key separation:</p>
+<ul>
+<li>GPT sees <strong>only</strong> <code>intent_list_full.json</code> (strings).</li>
+<li>The runtime uses <code>intent_method_map.json</code> to resolve <code>matched_intent → method_name</code>.</li>
+</ul>
+<hr />
+<h2 id="3-core-component-intentvalidator">3. Core Component: <code>IntentValidator</code><a class="headerlink" href="#3-core-component-intentvalidator" title="Permanent link">&para;</a></h2>
+<p>File: <code>interpreter/intent_validator.py</code></p>
+<h3 id="31-responsibilities">3.1 Responsibilities<a class="headerlink" href="#31-responsibilities" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Load all <code>*_skills_description.json</code> files from <code>workspace/</code>.</li>
+<li>For each <code>app_id</code>, build:</li>
+<li><code>intents: List[str]</code> – allowed intent descriptions.</li>
+<li><code>intent_to_method: Dict[str, str]</code> – mapping intent → method_name (when available).</li>
+<li>Provide a <strong>runtime API</strong> to:</li>
+<li>Expose allowed intents for each app.</li>
+<li>Validate a user message against those intents using a pluggable backend.</li>
+</ul>
+<h3 id="32-public-api">3.2 Public API<a class="headerlink" href="#32-public-api" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python">class IntentValidator:
+    def get_intents_for_app(self, app_id: str) -&gt; List[str]: ...
+    def get_method_for_intent(self, app_id: str, intent: str) -&gt; Optional[str]: ...
+    def validate(self, app_id: str, message: str, history: Optional[List[Any]]) -&gt; IntentValidationResult: ...</code></pre>
+<h4 id="intentvalidationresult"><code>IntentValidationResult</code><a class="headerlink" href="#intentvalidationresult" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-python">@dataclass
+class IntentValidationResult:
+    is_supported: bool
+    matched_intent: Optional[str] = None
+    method_name: Optional[str] = None  # always resolved server-side from intent→method map
+    reason: Optional[str] = None</code></pre>
+<hr />
+<h2 id="4-backend-interface-intentmatcherbackend">4. Backend Interface: <code>IntentMatcherBackend</code><a class="headerlink" href="#4-backend-interface-intentmatcherbackend" title="Permanent link">&para;</a></h2>
+<p>To keep the system flexible, the actual “AI” piece is abstracted as a backend:</p>
+<pre class="highlight"><code class="language-python">class IntentMatcherBackend(Protocol):
+    def match_intent(
+        self,
+        app_id: str,
+        message: str,
+        intents: List[str],
+        history: Optional[List[Any]] = None,
+    ) -&gt; IntentValidationResult:
+        ...</code></pre>
+<p><strong>Key design choices:</strong></p>
+<ul>
+<li>The backend <strong>must only choose</strong> among the given <code>intents</code>, or reject.</li>
+<li>It cannot invent new intents or switch apps.</li>
+<li>It may look at a <strong>small history snippet</strong> (last few turns) to resolve pronouns, but <strong>cannot expand scope</strong> beyond the provided <code>intents</code>.</li>
+</ul>
+<h3 id="41-openai-backend-intent-only-schema">4.1 OpenAI Backend (intent-only schema)<a class="headerlink" href="#41-openai-backend-intent-only-schema" title="Permanent link">&para;</a></h3>
+<p><code>OpenAIIntentMatcherBackend</code> implements <code>IntentMatcherBackend</code> using the project-local <code>openai_client.send_request_to_gpt</code>.</p>
+<p>Schema used for GPT responses:</p>
+<pre class="highlight"><code class="language-python">class IntentMatchResultModel(BaseModel):
+    is_supported: bool
+    matched_intent: Optional[str] = None
+    reason: Optional[str] = None</code></pre>
+<p>Key points:</p>
+<ul>
+<li>GPT <strong>never</strong> returns a <code>method_name</code>.</li>
+<li><code>matched_intent</code> must be <strong>exactly one</strong> of the provided intent strings (or <code>null</code>).</li>
+<li><code>reason</code> is a short explanation (at most ~20 words) used for clarifications.</li>
+</ul>
+<p><code>send_request_to_gpt</code> requests this schema and parses the model output as JSON (with some robustness against fenced ```json blocks).</p>
+<hr />
+<h2 id="5-conversation-flow-integration">5. Conversation Flow Integration<a class="headerlink" href="#5-conversation-flow-integration" title="Permanent link">&para;</a></h2>
+<p>File: <code>runtime/agents/conversation_agent.py</code></p>
+<p><code>ConversationAgent</code> is the “brain” that uses <code>IntentValidator</code> and <code>ActionPlanStore</code>.</p>
+<h3 id="51-high-level-flow">5.1 High-level flow<a class="headerlink" href="#51-high-level-flow" title="Permanent link">&para;</a></h3>
+<p>On each <code>/agent/request</code>:</p>
+<ol>
+<li>Load <code>Session</code> from <code>SessionStore</code>.</li>
+<li>Append a <strong>user turn</strong>:</li>
+</ol>
+<pre class="highlight"><code class="language-python">Turn(role="user", message=message, type="user", timestamp=...)</code></pre>
+<ol>
+<li>If <code>intent_validator</code> configured:</li>
+</ol>
+<pre class="highlight"><code class="language-python">response = self._handle_with_intent_validator(session, message)</code></pre>
+<p>Otherwise:</p>
+<pre class="highlight"><code class="language-python">response = self._fallback_clarification(session, message)</code></pre>
+<ol>
+<li>Save the updated session.</li>
+<li>Return <code>AgentResponse</code> to the caller (clarification or action_plan).</li>
+</ol>
+<hr />
+<h2 id="6-intent-validation-logic-in-conversationagent">6. Intent Validation Logic in <code>ConversationAgent</code><a class="headerlink" href="#6-intent-validation-logic-in-conversationagent" title="Permanent link">&para;</a></h2>
+<h3 id="61-_handle_with_intent_validator">6.1 <code>_handle_with_intent_validator(...)</code><a class="headerlink" href="#61-_handle_with_intent_validator" title="Permanent link">&para;</a></h3>
+<p>Steps:</p>
+<ol>
+<li>Call the validator:</li>
+</ol>
+<pre class="highlight"><code class="language-python">result = intent_validator.validate(
+    app_id=session.app_id,
+    message=message,
+    history=list(session.turns),
+)</code></pre>
+<ol>
+<li>Extract:</li>
+</ol>
+<pre class="highlight"><code class="language-python">is_supported  = result.is_supported
+matched_intent = result.matched_intent
+reason         = result.reason</code></pre>
+<ol>
+<li>
+<p><strong>Case 1 – Not supported</strong> (<code>is_supported == False</code>)</p>
+</li>
+<li>
+<p>Build a <strong>clarification message</strong> explaining that the request is not supported for this app (using <code>reason</code> if available).</p>
+</li>
+<li>Append a server turn with <code>type="clarification_unsupported"</code>.</li>
+<li>Keep <code>session.status = OPEN</code>.</li>
+<li>Log event: <code>intent_not_supported</code>.</li>
+<li>
+<p>Return:</p>
+<pre class="highlight"><code class="language-python">AgentResponse(type="clarification", ...)</code></pre>
+</li>
+<li>
+<p><strong>Case 2 – Supported: resolve method via map</strong></p>
+</li>
+<li>
+<p>Always resolve <code>method_name</code> from the server-side map, never from GPT:</p>
+<pre class="highlight"><code class="language-python">method_name: Optional[str] = None
+if result.matched_intent:
+    method_name = intent_validator.get_method_for_intent(
+        app_id=app_id,
+        intent=result.matched_intent,
+    )</code></pre>
+</li>
+<li>
+<p>If we <strong>cannot</strong> resolve <code>method_name</code>:</p>
+<ul>
+<li>Build a <strong>configuration clarification</strong>:<blockquote>
+<p>“I recognized your intent, but I could not map it to a concrete action. Please double-check the intent→method configuration.”</p>
+</blockquote>
+</li>
+<li>Append server turn with <code>type="clarification_ambiguous"</code>.</li>
+<li>Log event: <code>intent_ambiguous</code>.</li>
+<li>Return <code>AgentResponse(type="clarification", ...)</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Case 3 – Have <code>method_name</code>: load ActionPlan</strong></p>
+</li>
+<li>
+<p>Attempt:</p>
+<pre class="highlight"><code class="language-python">plan = actionplan_store.get_actionplan(app_id, method_name)</code></pre>
+</li>
+<li>
+<p>If <code>plan</code> is missing:</p>
+<ul>
+<li>Build a <strong>no-plan clarification</strong> message.</li>
+<li>Append <code>type="clarification_no_plan"</code>.</li>
+<li>Log event: <code>actionplan_missing</code>.</li>
+<li>Return <code>AgentResponse(type="clarification", ...)</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Case 4 – Success: ActionPlan available</strong></p>
+</li>
+<li>
+<p>We now have a valid <strong>ActionPlan</strong> and method.</p>
+</li>
+<li>
+<p>Construct a <strong>user-facing summary</strong>:</p>
+<ul>
+<li>If <code>matched_intent</code> is available, use it as the short message:</li>
+</ul>
+<pre class="highlight"><code class="language-python">server_message = matched_intent</code></pre>
+<ul>
+<li>Otherwise fall back to:</li>
+</ul>
+<pre class="highlight"><code class="language-python">server_message = f"Executing method '{method_name}' for app '{app_id}'."</code></pre>
+</li>
+<li>
+<p>Append server turn with <code>type="action_plan"</code>.</p>
+</li>
+<li>Set <code>session.status = ACTION_SENT</code>.</li>
+<li>Log event: <code>actionplan_selected</code>.</li>
+<li>
+<p>Return:</p>
+<pre class="highlight"><code class="language-python">AgentResponse(
+  type="action_plan",
+  message=server_message,
+  method_name=method_name,
+  action_plan=plan,
+  next_session_id=None,
+)</code></pre>
+</li>
+</ol>
+<hr />
+<h2 id="7-preventing-topic-shifts">7. Preventing Topic Shifts<a class="headerlink" href="#7-preventing-topic-shifts" title="Permanent link">&para;</a></h2>
+<p>Key rules that prevent the user from drifting away from the app’s domain:</p>
+<ol>
+<li>
+<p><strong>Fixed app_id per session</strong></p>
+</li>
+<li>
+<p>Every session is tied to exactly one <code>app_id</code>.</p>
+</li>
+<li>
+<p>All validation uses that app’s <code>intents</code>.</p>
+</li>
+<li>
+<p><strong>Closed intent set</strong></p>
+</li>
+<li>
+<p><code>IntentValidator.validate</code> always passes a <strong>fixed list of intents</strong> for this app.</p>
+</li>
+<li>
+<p>The backend must <strong>only</strong> choose among these or say “not supported”.</p>
+</li>
+<li>
+<p><strong>Per-turn validation</strong></p>
+</li>
+<li>
+<p>Every new user message in the session is validated again.</p>
+</li>
+<li>
+<p>If the user suddenly asks “book me a flight”, that won’t match any <code>plees_tracker</code> intents → <code>is_supported=False</code> → clarification.</p>
+</li>
+<li>
+<p><strong>History is limited</strong></p>
+</li>
+<li>
+<p>Only a small snippet of recent turns is provided to the backend.</p>
+</li>
+<li>History is used for <strong>disambiguation</strong>, not for expanding to new capabilities or apps.</li>
+</ol>
+<hr />
+<h2 id="8-session-lifecycle-intent">8. Session Lifecycle &amp; Intent<a class="headerlink" href="#8-session-lifecycle-intent" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><code>SessionStatus.OPEN</code></strong></li>
+<li>No action plan has been sent yet.</li>
+<li>User can go through multiple rounds of clarification.</li>
+<li><strong><code>SessionStatus.ACTION_SENT</code></strong></li>
+<li>An ActionPlan has been chosen and returned to the client.</li>
+<li>The current session is “consumed” for that VA request.</li>
+<li>Client can start a <strong>new session</strong> for the next task.</li>
+</ul>
+<hr />
+<h2 id="9-summary">9. Summary<a class="headerlink" href="#9-summary" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>skills_description</code> → <strong>intent strings + intent→method mapping</strong>.</li>
+<li><code>IntentValidator</code> → central interface for:</li>
+<li>listing allowed intents per app</li>
+<li>validating messages with a backend</li>
+<li><code>IntentMatcherBackend</code> → pluggable model layer (OpenAI or others).</li>
+<li><code>ConversationAgent</code> → uses validation to:</li>
+<li>enforce app scope</li>
+<li>handle unsupported / ambiguous cases with clarifications</li>
+<li>produce ActionPlans when intent is solid.</li>
+</ul>
+<p>This gives you:</p>
+<ul>
+<li>Clear control over <strong>what</strong> each app supports.</li>
+<li>A clean separation between:</li>
+<li><strong>data</strong> (skills + actionplans),</li>
+<li><strong>inference</strong> (intent backend),</li>
+<li><strong>runtime logic</strong> (ConversationAgent).</li>
+</ul></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

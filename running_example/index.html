@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An Automated Voice Assistant Generation Framework from GUI Test Cases Reusing">
+    
+    <link rel="canonical" href="https://nontestname.github.io/ava-gen/running_example/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    
+    <title>Running Example - AVA-Gen</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="..">AVA-Gen</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="..">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="active">
+                        <a href="./">Running Example</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../runtime_server_client/">Runtime Server & Client</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../cli/">CLI Guide</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../tool_paper/">Tool Paper & Evaluation</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="..">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../runtime_server_client/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/nontestname/ava-gen"><i class="fab fa-github"></i> GitHub</a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#ava-gen-running-example-for-preparing-va-ready-artifacts">AVA-Gen Running Example for preparing VA-Ready Artifacts</a></li>
+            <li class="second-level"><a href="#1-prepare-the-example-in-the-real-workspace">1. Prepare the example in the real workspace</a></li>
+                
+            <li class="second-level"><a href="#2-run-the-pipeline-for-huvmiklosplees_tracker">2. Run the pipeline for hu.vmiklos.plees_tracker</a></li>
+                
+            <li class="second-level"><a href="#3-adapt-the-pattern-to-your-own-app">3. Adapt the pattern to your own app</a></li>
+                
+            <li class="second-level"><a href="#4-optional-start-the-runtime-server">4. (Optional) Start the runtime server</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="ava-gen-running-example-for-preparing-va-ready-artifacts">AVA-Gen Running Example for preparing VA-Ready Artifacts<a class="headerlink" href="#ava-gen-running-example-for-preparing-va-ready-artifacts" title="Permanent link">&para;</a></h1>
+<p>This guide walks through a <strong>concrete, end-to-end example</strong> that generating all the VA-Ready Artifacts that your AVA-Gen sever may need later, using the example tests and application descriptions under <code>workspace/</code> folder and the bundled example app:</p>
+<ul>
+<li><code>app_id</code>: <code>hu.vmiklos.plees_tracker</code></li>
+</ul>
+<p>We assume you have already:</p>
+<ul>
+<li>Installed AVA‑Gen from this repo (<code>pip install .</code> or <code>pipx install ava-gen</code>)</li>
+<li>Configured <code>OPENAI_API_KEY</code> via environment or <code>.env</code></li>
+</ul>
+<p>All commands below are run from the project root (where <code>pyproject.toml</code> lives).</p>
+<hr />
+<h2 id="1-prepare-the-example-in-the-real-workspace">1. Prepare the example in the real workspace<a class="headerlink" href="#1-prepare-the-example-in-the-real-workspace" title="Permanent link">&para;</a></h2>
+<p>This repo ships an example test and app introduction under:</p>
+<ul>
+<li><code>examples/hu.vmiklos.plees_tracker/DeleteAllSleepsTest.java</code></li>
+<li><code>examples/hu.vmiklos.plees_tracker/app_introduction.txt</code></li>
+</ul>
+<p>Use the <code>prepare</code> command to copy these into the <code>workspace/</code> folder:</p>
+<pre class="highlight"><code class="language-bash">ava-gen prepare hu.vmiklos.plees_tracker examples/hu.vmiklos.plees_tracker/DeleteAllSleepsTest.java
+ava-gen prepare hu.vmiklos.plees_tracker examples/hu.vmiklos.plees_tracker/app_introduction.txt</code></pre>
+<p>After this, your real workspace will contain:</p>
+<pre class="highlight"><code class="language-text">workspace/
+  hu.vmiklos.plees_tracker/
+    input/
+      DeleteAllSleepsTest.java
+      app_introduction.txt</code></pre>
+<p>This is exactly the same structure you will use for your own apps, just with a
+different <code>{app_id}</code>, different tests and app introduction.</p>
+<hr />
+<h2 id="2-run-the-pipeline-for-huvmiklosplees_tracker">2. Run the pipeline for <code>hu.vmiklos.plees_tracker</code><a class="headerlink" href="#2-run-the-pipeline-for-huvmiklosplees_tracker" title="Permanent link">&para;</a></h2>
+<p>Now run the full pipeline against the <code>workspace/</code>:</p>
+<pre class="highlight"><code class="language-bash">ava-gen pipeline hu.vmiklos.plees_tracker</code></pre>
+<p>This will automatically:</p>
+<ul>
+<li>Parse the Espresso test class from <code>workspace/hu.vmiklos.plees_tracker/input/</code></li>
+<li>
+<p>Generate <em>Code Artifacts</em>:</p>
+</li>
+<li>
+<p><code>workspace/hu.vmiklos.plees_tracker/extracted_tests/</code> – per-test method Java files</p>
+</li>
+<li>
+<p><code>workspace/hu.vmiklos.plees_tracker/va_methods/</code> – converted VA methods</p>
+</li>
+<li>
+<p>Generate <em>Description Artifacts</em>:</p>
+</li>
+<li><code>workspace/skills_description/hu.vmiklos.plees_tracker_skills_description.json</code></li>
+<li><code>workspace/intent/intent_list_full.json</code></li>
+<li><code>workspace/intent/intent_method_map.json</code></li>
+<li><code>workspace/actionplan/hu.vmiklos.plees_tracker_actionplan.json</code></li>
+</ul>
+<p>After the command completes, your workspace will look roughly like:</p>
+<pre class="highlight"><code class="language-text">workspace/
+  actionplan/
+    hu.vmiklos.plees_tracker_actionplan.json
+
+  intent/
+    intent_list_full.json
+    intent_method_map.json
+
+  skills_description/
+    hu.vmiklos.plees_tracker_skills_description.json
+
+  hu.vmiklos.plees_tracker/
+    input/
+      DeleteAllSleepsTest.java
+      app_introduction.txt
+    extracted_tests/
+      deleteAllSleepsTest.java
+    va_methods/
+      deleteAllSleeps.java</code></pre>
+<p><strong>Congratulations!</strong> Now you have succesfully generate all the VA-Ready Artifcats for your app <code>hu.vmiklos.plees_tracker</code> with skill extracted from test method <code>DeleteAllSleepsTest.java</code></p>
+<p>The AVA-Gen server is ready to use all these artifacts to support the Voice Assistant on deleting all sleeps. Please see this to check details about AVA-Gen runtime server-client architecture.</p>
+<hr />
+<h2 id="3-adapt-the-pattern-to-your-own-app">3. Adapt the pattern to your own app<a class="headerlink" href="#3-adapt-the-pattern-to-your-own-app" title="Permanent link">&para;</a></h2>
+<p>To use AVA‑Gen with your own app under the same <code>workspace/</code> root:</p>
+<ol>
+<li>Choose your app id, e.g. <code>com.example.myapp</code>.</li>
+<li>Prepare input files:</li>
+</ol>
+<pre class="highlight"><code class="language-bash">ava-gen prepare com.example.myapp path/to/MyAppTest.java
+ava-gen prepare com.example.myapp path/to/app_introduction.txt   # optional</code></pre>
+<ol>
+<li>Run the pipeline:</li>
+</ol>
+<pre class="highlight"><code class="language-bash">ava-gen pipeline com.example.myapp</code></pre>
+<p>You will get the same kinds of outputs as the <code>hu.vmiklos.plees_tracker</code> example,
+but under <code>workspace/com.example.myapp/</code> and shared <code>workspace/skills_description</code>,
+<code>workspace/intent</code>, and <code>workspace/actionplan</code>.</p>
+<hr />
+<h2 id="4-optional-start-the-runtime-server">4. (Optional) Start the runtime server<a class="headerlink" href="#4-optional-start-the-runtime-server" title="Permanent link">&para;</a></h2>
+<p>Once your example (and/or your own app) has been processed via the pipeline, you
+can start the runtime server from the project root:</p>
+<pre class="highlight"><code class="language-bash">uvicorn runtime.api.server:app --reload</code></pre>
+<p>Before starting the server, make sure:</p>
+<ul>
+<li><code>workspace/hu.vmiklos.plees_tracker/actionplan/hu.vmiklos.plees_tracker_actionplan.json</code>
+  exists (and similarly for your own <code>{app_id}</code>)</li>
+<li><code>workspace/intent/intent_list_full.json</code> and
+  <code>workspace/intent/intent_method_map.json</code> have been generated</li>
+</ul>
+<p>Your tools or clients can then talk to the server at:</p>
+<ul>
+<li><code>http://127.0.0.1:8000/agent</code></li>
+</ul>
+<p>using the ActionPlans and skills that were generated in the real <code>workspace/</code> folder.</p></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

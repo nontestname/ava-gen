@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An Automated Voice Assistant Generation Framework from GUI Test Cases Reusing">
+    
+    <link rel="canonical" href="https://nontestname.github.io/ava-gen/old/runtime_design/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    
+    <title>AVA-Gen Runtime Design - AVA-Gen</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="../..">AVA-Gen</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../running_example/">Running Example</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../runtime_server_client/">Runtime Server & Client</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../cli/">CLI Guide</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../../tool_paper/">Tool Paper & Evaluation</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/nontestname/ava-gen"><i class="fab fa-github"></i> GitHub</a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#ava-gen-runtime-design">AVA-Gen Runtime Design</a></li>
+        <li class="first-level "><a href="#1-runtime-folder-structure">1. Runtime Folder Structure</a></li>
+        <li class="first-level "><a href="#2-responsibilities-of-each-component">2. Responsibilities of Each Component</a></li>
+            <li class="second-level"><a href="#runtimeapiserverpy">runtime/api/server.py</a></li>
+                
+            <li class="second-level"><a href="#runtimeapisession_routespy">runtime/api/session_routes.py</a></li>
+                
+            <li class="second-level"><a href="#runtimeagentsconversation_agentpy">runtime/agents/conversation_agent.py</a></li>
+                
+            <li class="second-level"><a href="#runtimestoresession_storepy">runtime/store/session_store.py</a></li>
+                
+            <li class="second-level"><a href="#runtimestoreactionplan_storepy">runtime/store/actionplan_store.py</a></li>
+                
+            <li class="second-level"><a href="#runtimestorelog_storepy">runtime/store/log_store.py</a></li>
+                
+        <li class="first-level "><a href="#3-session-flow-matches-the-5-rules">3. Session Flow (Matches the 5 Rules)</a></li>
+            <li class="second-level"><a href="#1-start-session">1️⃣ Start Session</a></li>
+                
+            <li class="second-level"><a href="#2-conversation-within-the-session">2️⃣ Conversation within the session</a></li>
+                
+            <li class="second-level"><a href="#3-if-actionplan-ready-rotate-session">3️⃣ If ActionPlan ready → rotate session</a></li>
+                
+            <li class="second-level"><a href="#4-history-cached">4️⃣ History cached</a></li>
+                
+            <li class="second-level"><a href="#5-logging">5️⃣ Logging</a></li>
+                
+        <li class="first-level "><a href="#summary">Summary</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="ava-gen-runtime-design">AVA-Gen Runtime Design<a class="headerlink" href="#ava-gen-runtime-design" title="Permanent link">&para;</a></h1>
+<p>This document describes the <strong>runtime architecture</strong> of the AVA-gen local server.<br />
+It is designed for a lightweight, local environment where the desktop/laptop (running AVA-gen) communicates with an Android device (via cable or Wi-Fi).</p>
+<p>The runtime supports:</p>
+<ul>
+<li>minimal sessions</li>
+<li>chat-style interaction</li>
+<li>conversation-driven ActionPlan retrieval</li>
+<li>simple file-based storage</li>
+<li>optional logging</li>
+</ul>
+<hr />
+<h1 id="1-runtime-folder-structure">1. Runtime Folder Structure<a class="headerlink" href="#1-runtime-folder-structure" title="Permanent link">&para;</a></h1>
+<pre class="highlight"><code>runtime/
+  __init__.py
+
+  api/
+    __init__.py
+    server.py            # FastAPI app + route mounting
+    session_routes.py    # /start_session, /agent/request
+
+  agents/
+    __init__.py
+    conversation_agent.py  # core logic: history + decision to send AP or clarify
+
+  store/
+    __init__.py
+    session_store.py     # in-memory + file-backed sessions
+    actionplan_store.py  # load workspace/&lt;app_id&gt;/*_actionplan.json
+    log_store.py         # append-only JSONL logs (optional)
+
+  models/
+    __init__.py
+    session_models.py    # Session, Turn, SessionStatus enum
+    api_models.py        # Request/Response Pydantic models
+
+workspace/
+  &lt;app_id&gt;/
+    actionplan/
+      &lt;app_id&gt;_actionplan.json
+  skills_description/
+    &lt;app_id&gt;_skills_description.json
+  intent/
+    intent_list_full.json        # per-app allowed intent strings (for GPT)
+    intent_method_map.json       # intent text -&gt; method_name (for server)</code></pre>
+<hr />
+<h1 id="2-responsibilities-of-each-component">2. Responsibilities of Each Component<a class="headerlink" href="#2-responsibilities-of-each-component" title="Permanent link">&para;</a></h1>
+<h2 id="runtimeapiserverpy"><code>runtime/api/server.py</code><a class="headerlink" href="#runtimeapiserverpy" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Creates the <strong>FastAPI app</strong></li>
+<li>Includes session-related routes from <code>session_routes.py</code></li>
+</ul>
+<h2 id="runtimeapisession_routespy"><code>runtime/api/session_routes.py</code><a class="headerlink" href="#runtimeapisession_routespy" title="Permanent link">&para;</a></h2>
+<p>Endpoints:</p>
+<ul>
+<li><strong>POST /start_session</strong></li>
+<li><strong>POST /agent/request</strong></li>
+</ul>
+<p>Uses:</p>
+<ul>
+<li>SessionStore</li>
+<li>ConversationAgent</li>
+<li>ActionPlanStore</li>
+</ul>
+<h2 id="runtimeagentsconversation_agentpy"><code>runtime/agents/conversation_agent.py</code><a class="headerlink" href="#runtimeagentsconversation_agentpy" title="Permanent link">&para;</a></h2>
+<p>Given:</p>
+<ul>
+<li>Session (with history)</li>
+<li>New user message</li>
+</ul>
+<p>Decides:</p>
+<ul>
+<li>Append to history</li>
+<li>Use <code>IntentValidator</code> to check whether the message is supported for this app.</li>
+<li>If supported: resolve <code>matched_intent</code> into a concrete VA <code>method_name</code> via the server-side map.</li>
+<li>If method found: fetch ActionPlan and return it.</li>
+<li>Otherwise: return a clarification.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li><code>AgentResponse(type="clarification", ...)</code></li>
+<li><code>AgentResponse(type="action_plan", ...)</code></li>
+</ul>
+<h2 id="runtimestoresession_storepy"><code>runtime/store/session_store.py</code><a class="headerlink" href="#runtimestoresession_storepy" title="Permanent link">&para;</a></h2>
+<p>Minimal session object:</p>
+<ul>
+<li><code>session_id: str</code></li>
+<li><code>app_id: str | null</code> (bound on first <code>/agent/request</code>)</li>
+<li><code>history: List[Turn]</code></li>
+<li><code>status: OPEN | ACTION_SENT | CLOSED</code></li>
+</ul>
+<p>In-memory dict:</p>
+<ul>
+<li><code>sessions: Dict[str, Session]</code></li>
+</ul>
+<p>Optional: write to<br />
+<code>runtime/data/sessions/&lt;session_id&gt;.json</code></p>
+<h2 id="runtimestoreactionplan_storepy"><code>runtime/store/actionplan_store.py</code><a class="headerlink" href="#runtimestoreactionplan_storepy" title="Permanent link">&para;</a></h2>
+<p>Loads action plans from:</p>
+<pre class="highlight"><code>workspace/&lt;app_id&gt;/actionplan/&lt;app_id&gt;_actionplan.json</code></pre>
+<p>Provides:</p>
+<pre class="highlight"><code>get_actionplan(app_id, method_name)</code></pre>
+<h2 id="runtimestorelog_storepy"><code>runtime/store/log_store.py</code><a class="headerlink" href="#runtimestorelog_storepy" title="Permanent link">&para;</a></h2>
+<p>Append JSONL entries to:</p>
+<pre class="highlight"><code>runtime/data/logs/actions_YYYY-MM-DD.jsonl</code></pre>
+<p>Format example:</p>
+<pre class="highlight"><code class="language-json">{
+  "ts": "2025-11-25T14:10:00Z",
+  "session_id": "123",
+  "app_id": "hu.vmiklos.plees_tracker",
+  "event_type": "action_plan_sent",
+  "payload": {
+    "method_name": "accessStatistics",
+    "step_count": 5
+  }
+}</code></pre>
+<hr />
+<h1 id="3-session-flow-matches-the-5-rules">3. Session Flow (Matches the 5 Rules)<a class="headerlink" href="#3-session-flow-matches-the-5-rules" title="Permanent link">&para;</a></h1>
+<h2 id="1-start-session"><strong>1️⃣ Start Session</strong><a class="headerlink" href="#1-start-session" title="Permanent link">&para;</a></h2>
+<p>Client:</p>
+<pre class="highlight"><code>POST /start_session</code></pre>
+<p>Server:</p>
+<ul>
+<li>creates session_id (uuid4)</li>
+<li>initializes history</li>
+<li>status = OPEN</li>
+<li>logs event</li>
+</ul>
+<p>Response:</p>
+<pre class="highlight"><code class="language-json">{ "session_id": "&lt;uuid&gt;" }</code></pre>
+<hr />
+<h2 id="2-conversation-within-the-session"><strong>2️⃣ Conversation within the session</strong><a class="headerlink" href="#2-conversation-within-the-session" title="Permanent link">&para;</a></h2>
+<p>Client:</p>
+<pre class="highlight"><code>POST /agent/request
+{
+  "session_id": "&lt;id&gt;",
+  "app_id": "&lt;app&gt;",
+  "message": "Open statistics screen"
+}</code></pre>
+<p>Server:</p>
+<ul>
+<li>loads session</li>
+<li>appends user turn</li>
+<li>runs ConversationAgent</li>
+</ul>
+<p>Agent decides:</p>
+<ul>
+<li>Need clarification</li>
+<li>OR ready to output ActionPlan</li>
+</ul>
+<hr />
+<h2 id="3-if-actionplan-ready-rotate-session"><strong>3️⃣ If ActionPlan ready → rotate session</strong><a class="headerlink" href="#3-if-actionplan-ready-rotate-session" title="Permanent link">&para;</a></h2>
+<p>Agent selects VA method (e.g., <code>"accessStatistics"</code>):</p>
+<ul>
+<li>Server loads ActionPlan</li>
+<li>Marks current session CLOSED</li>
+<li>Creates <strong>next_session_id</strong></li>
+</ul>
+<p>Response:</p>
+<pre class="highlight"><code class="language-json">{
+  "type": "action_plan",
+  "session_id": "&lt;old&gt;",
+  "app_id": "hu.vmiklos.plees_tracker",
+  "method_name": "accessStatistics",
+  "action_plan": { ... },
+  "next_session_id": "&lt;new&gt;"
+}</code></pre>
+<hr />
+<h2 id="4-history-cached"><strong>4️⃣ History cached</strong><a class="headerlink" href="#4-history-cached" title="Permanent link">&para;</a></h2>
+<p>Every request:</p>
+<ul>
+<li>read session.history</li>
+<li>append turn</li>
+<li>agent uses full dialog context</li>
+</ul>
+<p>Optional session persistence:</p>
+<pre class="highlight"><code>runtime/data/sessions/&lt;session_id&gt;.json</code></pre>
+<hr />
+<h2 id="5-logging"><strong>5️⃣ Logging</strong><a class="headerlink" href="#5-logging" title="Permanent link">&para;</a></h2>
+<p>Every important event logged via LogStore:</p>
+<ul>
+<li><code>session_created</code></li>
+<li><code>user_message</code></li>
+<li><code>clarification_sent</code></li>
+<li><code>action_plan_sent</code></li>
+</ul>
+<p>Saved to:</p>
+<pre class="highlight"><code>runtime/data/logs/actions_&lt;date&gt;.jsonl</code></pre>
+<hr />
+<h1 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h1>
+<p>This runtime design:</p>
+<ul>
+<li>keeps sessions lightweight</li>
+<li>allows multi-turn clarification</li>
+<li>returns JSON-based ActionPlans</li>
+<li>supports offline/local operation</li>
+<li>uses simple file-based storage</li>
+<li>aligns with AVA-gen’s ActionPlan format</li>
+</ul>
+<hr /></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

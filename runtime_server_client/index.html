@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An Automated Voice Assistant Generation Framework from GUI Test Cases Reusing">
+    
+    <link rel="canonical" href="https://nontestname.github.io/ava-gen/runtime_server_client/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    
+    <title>Runtime Server & Client - AVA-Gen</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="..">AVA-Gen</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../running_example/">Running Example</a>
+                    </li>
+                
+                
+                
+                    <li class="active">
+                        <a href="./">Runtime Server & Client</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../cli/">CLI Guide</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../tool_paper/">Tool Paper & Evaluation</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../running_example/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../cli/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/nontestname/ava-gen"><i class="fab fa-github"></i> GitHub</a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#using-the-avagen-runtime-server-client">Using the AVA‑Gen Runtime (Server &amp; Client)</a></li>
+            <li class="second-level"><a href="#1-start-the-runtime-server">1. Start the runtime server</a></li>
+                
+            <li class="second-level"><a href="#2-using-an-android-emulator">2. Using an Android emulator</a></li>
+                
+                <li class="third-level"><a href="#21-start-an-emulator">2.1 Start an emulator</a></li>
+                <li class="third-level"><a href="#22-install-the-avagen-client-apk">2.2 Install the AVA‑Gen client APK</a></li>
+                <li class="third-level"><a href="#23-install-your-exampleapp-under-test-apk">2.3 Install your example/app-under-test APK</a></li>
+                <li class="third-level"><a href="#24-configure-the-client-app-to-talk-to-the-server">2.4 Configure the client app to talk to the server</a></li>
+            <li class="second-level"><a href="#3-using-a-real-android-device-phone">3. Using a real Android device (phone)</a></li>
+                
+                <li class="third-level"><a href="#31-using-adb-reverse-recommended-for-development">3.1 Using adb reverse (recommended for development)</a></li>
+            <li class="second-level"><a href="#4-test-the-http-api-from-your-desktop-curl-postman">4. Test the HTTP API from your desktop (curl / Postman)</a></li>
+                
+                <li class="third-level"><a href="#41-start-a-session-curl">4.1 Start a session (curl)</a></li>
+                <li class="third-level"><a href="#42-send-a-request-curl">4.2 Send a request (curl)</a></li>
+                <li class="third-level"><a href="#43-use-postman-or-similar">4.3 Use Postman (or similar)</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="using-the-avagen-runtime-server-client">Using the AVA‑Gen Runtime (Server &amp; Client)<a class="headerlink" href="#using-the-avagen-runtime-server-client" title="Permanent link">&para;</a></h1>
+<p>This guide explains how to:</p>
+<ul>
+<li>Start the AVA‑Gen runtime server.</li>
+<li>Call the <code>/agent</code> HTTP endpoints from a client.</li>
+<li>Connect an Android emulator or a real phone to the server.</li>
+<li>Note the small differences for macOS vs. Windows hosts.</li>
+</ul>
+<p>It assumes you have already:</p>
+<ul>
+<li>Installed AVA‑Gen (<code>pip install .</code> or <code>pipx install ava-gen</code>).</li>
+<li>Configured <code>OPENAI_API_KEY</code> and run the pipeline so that:</li>
+<li><code>workspace/skills_description/*.json</code></li>
+<li><code>workspace/intent/intent_list_full.json</code></li>
+<li><code>workspace/intent/intent_method_map.json</code></li>
+<li><code>workspace/actionplan/&lt;app_id&gt;_actionplan.json</code>
+    exist for at least one app (e.g. <code>hu.vmiklos.plees_tracker</code>).</li>
+</ul>
+<hr />
+<h2 id="1-start-the-runtime-server">1. Start the runtime server<a class="headerlink" href="#1-start-the-runtime-server" title="Permanent link">&para;</a></h2>
+<p>From the project root:</p>
+<pre class="highlight"><code class="language-bash">uvicorn runtime.api.server:app --reload</code></pre>
+<p>This will:</p>
+<ul>
+<li>Load configuration from your environment / <code>.env</code> (see <code>configs/settings.py</code>).</li>
+<li>Initialize the intent validator, action plan store, and session store.</li>
+<li>Expose the FastAPI app on <code>http://127.0.0.1:8000</code> by default.</li>
+</ul>
+<p>If the <code>uvicorn</code> command is not found, use the Python module form instead:</p>
+<ul>
+<li><strong>macOS / Linux</strong></li>
+</ul>
+<pre class="highlight"><code class="language-bash">python -m uvicorn runtime.api.server:app --reload</code></pre>
+<ul>
+<li><strong>Windows (PowerShell / Command Prompt)</strong></li>
+</ul>
+<pre class="highlight"><code class="language-bash">py -m uvicorn runtime.api.server:app --reload</code></pre>
+<blockquote>
+<p>Tip: To allow access from other devices on your local network, bind to
+all interfaces:</p>
+<pre class="highlight"><code class="language-bash">uvicorn runtime.api.server:app --host 0.0.0.0 --port 8000 --reload</code></pre>
+</blockquote>
+<p>You can verify the server is up by opening:</p>
+<ul>
+<li><code>http://127.0.0.1:8000/agent/healthz</code></li>
+</ul>
+<p>You should see:</p>
+<pre class="highlight"><code class="language-json">{ "status": "ok" }</code></pre>
+<hr />
+<h2 id="2-using-an-android-emulator">2. Using an Android emulator<a class="headerlink" href="#2-using-an-android-emulator" title="Permanent link">&para;</a></h2>
+<p>To run the example app (or your own APK) in an Android emulator and connect it
+to the AVA‑Gen runtime server, you will typically:</p>
+<ol>
+<li>Start the emulator.</li>
+<li>Install the AVA‑Gen client APK (<code>ava-gen-client.apk</code>).</li>
+<li>Install your example/app-under-test APK.</li>
+<li>Configure the client app to talk to the host machine (<code>10.0.2.2:8000</code>).</li>
+</ol>
+<h3 id="21-start-an-emulator">2.1 Start an emulator<a class="headerlink" href="#21-start-an-emulator" title="Permanent link">&para;</a></h3>
+<p>Use Android Studio’s AVD Manager or the command line:</p>
+<ul>
+<li>Open Android Studio → Device Manager → create / start a virtual device.</li>
+<li>Or run:</li>
+</ul>
+<pre class="highlight"><code class="language-bash">emulator -avd &lt;your_avd_name&gt;</code></pre>
+<h3 id="22-install-the-avagen-client-apk">2.2 Install the AVA‑Gen client APK<a class="headerlink" href="#22-install-the-avagen-client-apk" title="Permanent link">&para;</a></h3>
+<p>Once the emulator is running, install the provided AVA‑Gen client APK:</p>
+<pre class="highlight"><code class="language-bash">adb install client/ava-gen-client_v1.apk</code></pre>
+<p>On first launch, make sure:</p>
+<ul>
+<li>The app has <strong>Microphone</strong> permission (Search Permissions → Microphone and enable it).</li>
+<li>If your test device/emulator groups these permissions under Accessibility, ensure the microphone permission is enabled there as well.</li>
+</ul>
+<h3 id="23-install-your-exampleapp-under-test-apk">2.3 Install your example/app-under-test APK<a class="headerlink" href="#23-install-your-exampleapp-under-test-apk" title="Permanent link">&para;</a></h3>
+<p>Once the emulator is running, install your example APK via <code>adb</code>:</p>
+<pre class="highlight"><code class="language-bash">adb install path/to/your_app.apk</code></pre>
+<p>If you rebuilt the APK, you may need:</p>
+<pre class="highlight"><code class="language-bash">adb install -r path/to/your_app.apk</code></pre>
+<p>For the running example of <code>hu.vmiklos.plees_tracker</code>, please:</p>
+<pre class="highlight"><code class="language-bash">adb install examples/plees-tracker-24.8.1.apk</code></pre>
+<p>You should see AVA-Gen app in the Accessibility Tool List after the installation.</p>
+<h3 id="24-configure-the-client-app-to-talk-to-the-server">2.4 Configure the client app to talk to the server<a class="headerlink" href="#24-configure-the-client-app-to-talk-to-the-server" title="Permanent link">&para;</a></h3>
+<p>Inside an Android emulator:</p>
+<ul>
+<li><code>10.0.2.2</code> is a special alias that points to <strong>your host’s</strong> <code>127.0.0.1</code>.</li>
+</ul>
+<p>So as long as you run the server and the emulator (with client) on the same computer (MacOS or Windows), you should see everything connect together automatically.</p>
+<hr />
+<h2 id="3-using-a-real-android-device-phone">3. Using a real Android device (phone)<a class="headerlink" href="#3-using-a-real-android-device-phone" title="Permanent link">&para;</a></h2>
+<p>You can also connect a physical phone to the AVA‑Gen runtime running on your
+Mac or Windows machine. There are two common patterns:</p>
+<ol>
+<li>Use <code>adb reverse</code> (USB cable, no Wi‑Fi configuration).</li>
+<li>Put both phone and host on the same Wi‑Fi network (Not tested)</li>
+</ol>
+<h3 id="31-using-adb-reverse-recommended-for-development">3.1 Using <code>adb reverse</code> (recommended for development)<a class="headerlink" href="#31-using-adb-reverse-recommended-for-development" title="Permanent link">&para;</a></h3>
+<p>This works on Android 5.0+ and does not require exposing your server on the LAN.</p>
+<ol>
+<li>Enable <strong>USB debugging</strong> on your phone (Developer options).</li>
+<li>Connect the phone via USB.</li>
+<li>Verify the device is recognized:</li>
+</ol>
+<pre class="highlight"><code class="language-bash">adb devices</code></pre>
+<ol>
+<li>Start the AVA‑Gen server on your host:</li>
+</ol>
+<pre class="highlight"><code class="language-bash">uvicorn runtime.api.server:app --reload</code></pre>
+<ol>
+<li>Run <code>adb reverse</code> so the device can reach the host’s port 8000 via its own
+   <code>localhost</code>:</li>
+</ol>
+<pre class="highlight"><code class="language-bash">adb reverse tcp:8000 tcp:8000</code></pre>
+<p>When the app calls, traffic is forwarded over USB to the AVA‑Gen server running on your Mac or Windows machine.</p>
+<blockquote>
+<p>On some cases, firewalls can block incoming connections. If the app cannot reach the server, check your firewall settings on macOS (System Settings → Network/Firewall) or Windows (Windows Defender Firewall).</p>
+</blockquote>
+<hr />
+<h2 id="4-test-the-http-api-from-your-desktop-curl-postman">4. Test the HTTP API from your desktop (curl / Postman)<a class="headerlink" href="#4-test-the-http-api-from-your-desktop-curl-postman" title="Permanent link">&para;</a></h2>
+<p>Once the server is running, you can exercise the <code>/agent</code> API directly from your Mac or Windows machine. This is useful for debugging before wiring up the Android client.</p>
+<p>The runtime exposes three key endpoints, all under the <code>/agent</code> prefix:</p>
+<ul>
+<li>
+<p><code>GET /agent/healthz</code><br />
+  Simple health check.</p>
+</li>
+<li>
+<p><code>POST /agent/start_session</code><br />
+  Returns a new <code>session_id</code> you use for subsequent requests.</p>
+</li>
+<li>
+<p><code>POST /agent/request</code><br />
+  Main interaction endpoint; takes user messages plus <code>session_id</code> and
+  <code>app_id</code>, and returns an <code>AgentResponse</code> (clarifying questions or an
+  ActionPlan).</p>
+</li>
+</ul>
+<h3 id="41-start-a-session-curl">4.1 Start a session (curl)<a class="headerlink" href="#41-start-a-session-curl" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-bash">curl -X POST http://127.0.0.1:8000/agent/start_session</code></pre>
+<p>Example response:</p>
+<pre class="highlight"><code class="language-json">{ "session_id": "abc123-session-id" }</code></pre>
+<h3 id="42-send-a-request-curl">4.2 Send a request (curl)<a class="headerlink" href="#42-send-a-request-curl" title="Permanent link">&para;</a></h3>
+<p>Use the <code>session_id</code> above and the app id you have processed (for example
+<code>hu.vmiklos.plees_tracker</code>):</p>
+<pre class="highlight"><code class="language-bash">curl -X POST http://127.0.0.1:8000/agent/request \
+  -H "Content-Type: application/json" \
+  -d '{
+    "session_id": "abc123-session-id",
+    "app_id": "hu.vmiklos.plees_tracker",
+    "message": "Delete all existing sleep records"
+  }'</code></pre>
+<p>The response shape is defined in <code>runtime/models/api_models.py</code> and normally
+includes a high-level status and, when applicable, an ActionPlan derived from
+your <code>workspace/actionplan/&lt;app_id&gt;_actionplan.json</code>.</p>
+<h3 id="43-use-postman-or-similar">4.3 Use Postman (or similar)<a class="headerlink" href="#43-use-postman-or-similar" title="Permanent link">&para;</a></h3>
+<p>If you prefer a GUI client like Postman or Insomnia:</p>
+<ol>
+<li>Create a new <strong>POST</strong> request to <code>http://127.0.0.1:8000/agent/start_session</code>.</li>
+<li>Send the request and copy the <code>session_id</code> from the JSON response.</li>
+<li>Create another <strong>POST</strong> request to <code>http://127.0.0.1:8000/agent/request</code>.</li>
+<li>Set the body type to <strong>raw JSON</strong> and provide:</li>
+</ol>
+<pre class="highlight"><code class="language-json">{
+  "session_id": "abc123-session-id",
+  "app_id": "hu.vmiklos.plees_tracker",
+  "message": "Delete all existing sleep records"
+}</code></pre>
+<ol>
+<li>Send the request and inspect the JSON response (clarifications, selected
+   ActionPlan, etc.).</li>
+</ol></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

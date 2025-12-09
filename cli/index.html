@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An Automated Voice Assistant Generation Framework from GUI Test Cases Reusing">
+    
+    <link rel="canonical" href="https://nontestname.github.io/ava-gen/cli/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    
+    <title>CLI Guide - AVA-Gen</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="..">AVA-Gen</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../running_example/">Running Example</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../runtime_server_client/">Runtime Server & Client</a>
+                    </li>
+                
+                
+                
+                    <li class="active">
+                        <a href="./">CLI Guide</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../tool_paper/">Tool Paper & Evaluation</a>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../runtime_server_client/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../tool_paper/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/nontestname/ava-gen"><i class="fab fa-github"></i> GitHub</a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#ava-gen-cli-guide">AVA-Gen CLI Guide</a></li>
+            <li class="second-level"><a href="#installation">Installation</a></li>
+                
+            <li class="second-level"><a href="#configuration">Configuration</a></li>
+                
+            <li class="second-level"><a href="#overview">Overview</a></li>
+                
+            <li class="second-level"><a href="#global-options">Global options</a></li>
+                
+            <li class="second-level"><a href="#1-prepare-copy-files-into-workspace-input">1. prepare – copy files into workspace input</a></li>
+                
+                <li class="third-level"><a href="#usage">Usage</a></li>
+                <li class="third-level"><a href="#behavior">Behavior</a></li>
+                <li class="third-level"><a href="#example-output">Example output</a></li>
+            <li class="second-level"><a href="#2-extract-extract-test-methods">2. extract – extract test methods</a></li>
+                
+                <li class="third-level"><a href="#usage_1">Usage</a></li>
+                <li class="third-level"><a href="#behavior_1">Behavior</a></li>
+                <li class="third-level"><a href="#example-output_1">Example output</a></li>
+            <li class="second-level"><a href="#3-generate-va-generate-va-methods">3. generate-va – generate VA methods</a></li>
+                
+                <li class="third-level"><a href="#usage_2">Usage</a></li>
+                <li class="third-level"><a href="#behavior_2">Behavior</a></li>
+                <li class="third-level"><a href="#example-output_2">Example output</a></li>
+            <li class="second-level"><a href="#4-build-skills-build-skills_description-json">4. build-skills – build skills_description JSON</a></li>
+                
+                <li class="third-level"><a href="#usage_3">Usage</a></li>
+                <li class="third-level"><a href="#behavior_3">Behavior</a></li>
+                <li class="third-level"><a href="#example-output_3">Example output</a></li>
+            <li class="second-level"><a href="#5-build-intents-build-global-intent-artifacts">5. build-intents – build global intent artifacts</a></li>
+                
+                <li class="third-level"><a href="#usage_4">Usage</a></li>
+                <li class="third-level"><a href="#behavior_4">Behavior</a></li>
+                <li class="third-level"><a href="#example-output_4">Example output</a></li>
+            <li class="second-level"><a href="#6-actionplan-build-actionplans-for-one-app">6. actionplan – build ActionPlans for one app</a></li>
+                
+                <li class="third-level"><a href="#usage_5">Usage</a></li>
+                <li class="third-level"><a href="#behavior_5">Behavior</a></li>
+                <li class="third-level"><a href="#example-output_5">Example output</a></li>
+            <li class="second-level"><a href="#7-pipeline-run-the-full-chain-for-one-app">7. pipeline – run the full chain for one app</a></li>
+                
+                <li class="third-level"><a href="#usage_6">Usage</a></li>
+                <li class="third-level"><a href="#behavior_6">Behavior</a></li>
+                <li class="third-level"><a href="#example-output_6">Example output</a></li>
+            <li class="second-level"><a href="#7-starting-the-runtime-server">7. Starting the runtime server</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="ava-gen-cli-guide">AVA-Gen CLI Guide<a class="headerlink" href="#ava-gen-cli-guide" title="Permanent link">&para;</a></h1>
+<p>This document describes the AVA-Gen command-line interface (CLI) and how it
+orchestrates the end-to-end workflow from <strong>raw test classes</strong> to
+<strong>runtime-ready artifacts</strong> for the AVA-Gen server.</p>
+<p>The CLI lives in <code>cli/main.py</code> and is exposed as the <code>ava-gen</code> command when
+you install the package.</p>
+<hr />
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<p>From the project root:</p>
+<pre class="highlight"><code class="language-bash">pip install .
+# or
+pipx install .</code></pre>
+<p>Once installed:</p>
+<pre class="highlight"><code class="language-bash">ava-gen --help</code></pre>
+<hr />
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<p>AVA-Gen reads configuration from environment variables (optionally via a
+<code>.env</code> file). Copy <code>.env.example</code> to <code>.env</code> and fill in your values:</p>
+<ul>
+<li><code>OPENAI_API_KEY</code> (required) – your OpenAI key.</li>
+<li><code>OPENAI_BASE_URL</code> (optional) – custom API base URL or proxy.</li>
+<li><code>AVA_GEN_OPENAI_MODEL</code> (optional) – default model (default: <code>gpt-4.1-mini</code>).</li>
+<li><code>AVA_GEN_INTENT_MODEL</code> (optional) – model for intent matching (defaults to <code>AVA_GEN_OPENAI_MODEL</code>).</li>
+<li><code>AVA_GEN_WORKSPACE_ROOT</code> (optional) – workspace root (default: <code>workspace</code>).</li>
+<li><code>AVA_GEN_RUNTIME_DATA_DIR</code> (optional) – runtime data dir (default: <code>runtime/data</code>).</li>
+</ul>
+<p>The CLI option <code>--workspace-root</code> always takes precedence over
+<code>AVA_GEN_WORKSPACE_ROOT</code>.</p>
+<hr />
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>High-level pipeline (per app):</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Command</th>
+<th>Purpose</th>
+<th>Key outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>ava-gen prepare &lt;app_id&gt; ...</code></td>
+<td>Copy raw test classes / app intro into the workspace.</td>
+<td><code>workspace/&lt;app_id&gt;/input/</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>ava-gen extract &lt;app_id&gt;</code></td>
+<td>Parse Espresso tests into per-test Java methods.</td>
+<td><code>workspace/&lt;app_id&gt;/extracted_tests/</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>ava-gen generate-va &lt;app_id&gt;</code></td>
+<td>Convert extracted tests into VA methods.</td>
+<td><code>workspace/&lt;app_id&gt;/va_methods/</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>ava-gen build-skills &lt;app_id&gt;</code></td>
+<td>Build skill/context descriptions from VA methods.</td>
+<td><code>workspace/skills_description/&lt;app_id&gt;_skills_description.json</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>ava-gen build-intents</code></td>
+<td>Aggregate intents and intent→method mapping (all apps).</td>
+<td><code>workspace/intent/intent_list_full.json</code>, <code>workspace/intent/intent_method_map.json</code></td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>ava-gen actionplan &lt;app_id&gt;</code></td>
+<td>Build ActionPlans from VA methods for the given app.</td>
+<td><code>workspace/actionplan/&lt;app_id&gt;_actionplan.json</code></td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>ava-gen pipeline &lt;app_id&gt;</code></td>
+<td>Convenience command that runs steps 2–6 for one app.</td>
+<td>All of the above for <code>&lt;app_id&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>The VA runtime server is started separately, for example:</p>
+<pre class="highlight"><code class="language-bash">uvicorn runtime.api.server:app --reload</code></pre>
+<p>All commands accept an optional <code>--workspace-root</code> argument (default: <code>workspace</code>).</p>
+<hr />
+<h2 id="global-options">Global options<a class="headerlink" href="#global-options" title="Permanent link">&para;</a></h2>
+<pre class="highlight"><code class="language-bash">ava-gen &lt;command&gt; [options]
+ava-gen --workspace-root &lt;PATH&gt; &lt;command&gt; [options]</code></pre>
+<ul>
+<li>By default, the workspace root is taken from <code>AVA_GEN_WORKSPACE_ROOT</code> or
+  <code>./workspace</code> if the env var is not set.</li>
+<li><code>--workspace-root PATH</code><br />
+  Overrides the workspace root for a single command.</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+</div>
+<p><code>--workspace-root</code> is a <strong>global</strong> option. It must appear
+<strong>before</strong> the subcommand name (<code>prepare</code>, <code>extract</code>, <code>pipeline</code>, etc.),
+not after the <code>app_id</code>.</p>
+<hr />
+<h2 id="1-prepare-copy-files-into-workspace-input">1. <code>prepare</code> – copy files into workspace input<a class="headerlink" href="#1-prepare-copy-files-into-workspace-input" title="Permanent link">&para;</a></h2>
+<p>Prepare the workspace for a specific app by copying a single file into the
+app's <code>input/</code> folder. You can call this multiple times (for test classes and
+an optional app introduction text).</p>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-bash">ava-gen prepare &lt;app_id&gt; path/to/file</code></pre>
+<h3 id="behavior">Behavior<a class="headerlink" href="#behavior" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Creates (if needed):</li>
+<li><code>workspace/&lt;app_id&gt;/input/</code></li>
+<li>Copies:</li>
+<li><code>path/to/file</code> → <code>workspace/&lt;app_id&gt;/input/&lt;original_name&gt;</code></li>
+</ul>
+<p>Call this once for your test class, e.g.:</p>
+<pre class="highlight"><code class="language-bash">ava-gen prepare com.example.myapp path/to/MyAppTest.java</code></pre>
+<p>And optionally once for your app introduction:</p>
+<pre class="highlight"><code class="language-bash">ava-gen prepare com.example.myapp path/to/app_introduction.txt</code></pre>
+<h3 id="example-output">Example output<a class="headerlink" href="#example-output" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-text">[AVA-Gen] Preparing workspace for app_id=hu.vmiklos.plees_tracker
+[AVA-Gen] ➕ Copying file: tests/PleesTrackerTests.java → workspace/hu.vmiklos.plees_tracker/input/PleesTrackerTests.java
+[AVA-Gen] Workspace input updated</code></pre>
+<hr />
+<h2 id="2-extract-extract-test-methods">2. <code>extract</code> – extract test methods<a class="headerlink" href="#2-extract-extract-test-methods" title="Permanent link">&para;</a></h2>
+<p>Run the Espresso test parser and populate <code>extracted_tests/</code> for the app.</p>
+<h3 id="usage_1">Usage<a class="headerlink" href="#usage_1" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-bash">ava-gen extract &lt;app_id&gt;</code></pre>
+<h3 id="behavior_1">Behavior<a class="headerlink" href="#behavior_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Calls <code>process_app_workspace(app_id, workspace_root)</code> (converter pipeline).</li>
+<li>Reports how many test methods were extracted.</li>
+<li>Uses:</li>
+<li><code>workspace/&lt;app_id&gt;/extracted_tests/</code></li>
+</ul>
+<h3 id="example-output_1">Example output<a class="headerlink" href="#example-output_1" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-text">[AVA-Gen] Parsing test scripts for app_id=hu.vmiklos.plees_tracker...
+[AVA-Gen] ✓ 12 test methods extracted → workspace/hu.vmiklos.plees_tracker/extracted_tests/</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+</div>
+<p>Internally, <code>process_app_workspace</code> also populates <code>va_methods/</code>, but
+this command focuses on reporting the extracted tests.</p>
+<hr />
+<h2 id="3-generate-va-generate-va-methods">3. <code>generate-va</code> – generate VA methods<a class="headerlink" href="#3-generate-va-generate-va-methods" title="Permanent link">&para;</a></h2>
+<p>Generate VA methods from the extracted tests for a specific app.</p>
+<h3 id="usage_2">Usage<a class="headerlink" href="#usage_2" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-bash">ava-gen generate-va &lt;app_id&gt;</code></pre>
+<h3 id="behavior_2">Behavior<a class="headerlink" href="#behavior_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Reuses <code>process_app_workspace(app_id, workspace_root)</code> to ensure that
+  <code>extracted_tests/</code> and <code>va_methods/</code> are in sync.</li>
+<li>Counts the generated VA method files.</li>
+<li>Uses:</li>
+<li><code>workspace/&lt;app_id&gt;/va_methods/</code></li>
+</ul>
+<h3 id="example-output_2">Example output<a class="headerlink" href="#example-output_2" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-text">[AVA-Gen] Generating VA methods for app_id=hu.vmiklos.plees_tracker...
+[AVA-Gen] ✓ 5 VA methods created → workspace/hu.vmiklos.plees_tracker/va_methods/</code></pre>
+<hr />
+<h2 id="4-build-skills-build-skills_description-json">4. <code>build-skills</code> – build skills_description JSON<a class="headerlink" href="#4-build-skills-build-skills_description-json" title="Permanent link">&para;</a></h2>
+<p>Build skill/context descriptions for a specific app using the skill interpreter.</p>
+<h3 id="usage_3">Usage<a class="headerlink" href="#usage_3" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-bash">ava-gen build-skills &lt;app_id&gt;</code></pre>
+<h3 id="behavior_3">Behavior<a class="headerlink" href="#behavior_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Calls <code>core.interpreter.skill_interpreter.interpret(workspace_root, app_id)</code>.</li>
+<li>Writes a skills/contexts JSON file to:</li>
+</ul>
+<pre class="highlight"><code class="language-text">workspace/skills_description/&lt;app_id&gt;_skills_description.json</code></pre>
+<h3 id="example-output_3">Example output<a class="headerlink" href="#example-output_3" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-text">[AVA-Gen] Building JSON skill descriptions for app_id=hu.vmiklos.plees_tracker...
+[AVA-Gen] ✓ workspace/skills_description/hu.vmiklos.plees_tracker_skills_description.json written</code></pre>
+<hr />
+<h2 id="5-build-intents-build-global-intent-artifacts">5. <code>build-intents</code> – build global intent artifacts<a class="headerlink" href="#5-build-intents-build-global-intent-artifacts" title="Permanent link">&para;</a></h2>
+<p>Build the global intent list and intent→method map used by the runtime
+intent validator.</p>
+<h3 id="usage_4">Usage<a class="headerlink" href="#usage_4" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-bash">ava-gen build-intents</code></pre>
+<h3 id="behavior_4">Behavior<a class="headerlink" href="#behavior_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Uses <code>core.interpreter.intent_interpreter.IntentInterpreter</code>.</li>
+<li>Aggregates all <code>*_skills_description.json</code> files.</li>
+<li>
+<p>Writes:</p>
+</li>
+<li>
+<p><code>workspace/intent/intent_list_full.json</code><br />
+    – per-app <strong>intent strings</strong> (and optional <code>intent_summary</code> sentence) for GPT
+    intent matching and capability summaries.</p>
+</li>
+<li><code>workspace/intent/intent_method_map.json</code><br />
+    – per-app <strong>intent → method_name</strong> mapping.</li>
+</ul>
+<h3 id="example-output_4">Example output<a class="headerlink" href="#example-output_4" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-text">[AVA-Gen] Building global intent list and intent→method map...
+[AVA-Gen] ✓ workspace/intent/intent_list_full.json written
+[AVA-Gen] ✓ workspace/intent/intent_method_map.json written</code></pre>
+<hr />
+<h2 id="6-actionplan-build-actionplans-for-one-app">6. <code>actionplan</code> – build ActionPlans for one app<a class="headerlink" href="#6-actionplan-build-actionplans-for-one-app" title="Permanent link">&para;</a></h2>
+<p>Build ActionPlans for a specific app based on its generated VA methods.</p>
+<h3 id="usage_5">Usage<a class="headerlink" href="#usage_5" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-bash">ava-gen actionplan &lt;app_id&gt;</code></pre>
+<h3 id="behavior_5">Behavior<a class="headerlink" href="#behavior_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Uses <code>core.actionplan.actionplan_parser.generate_action_plans_for_app</code>.</li>
+<li>Reads:</li>
+<li><code>workspace/&lt;app_id&gt;/va_methods/*.java</code></li>
+<li>Writes:</li>
+<li><code>workspace/actionplan/&lt;app_id&gt;_actionplan.json</code></li>
+</ul>
+<h3 id="example-output_5">Example output<a class="headerlink" href="#example-output_5" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-text">[AVA-Gen] Building ActionPlans for app_id=hu.vmiklos.plees_tracker...
+[AVA-Gen] Action plans written to: workspace/actionplan/hu.vmiklos.plees_tracker_actionplan.json</code></pre>
+<hr />
+<h2 id="7-pipeline-run-the-full-chain-for-one-app">7. <code>pipeline</code> – run the full chain for one app<a class="headerlink" href="#7-pipeline-run-the-full-chain-for-one-app" title="Permanent link">&para;</a></h2>
+<p>Run the main pipeline steps (2–6) for a single app in one command.</p>
+<h3 id="usage_6">Usage<a class="headerlink" href="#usage_6" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-bash">ava-gen pipeline &lt;app_id&gt; [--skip-intents]</code></pre>
+<ul>
+<li><code>--skip-intents</code><br />
+  If provided, skips the <code>build-intents</code> step and only generates
+  app-specific artifacts (extracted tests, VA methods, skills_description).</li>
+</ul>
+<h3 id="behavior_6">Behavior<a class="headerlink" href="#behavior_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>For the given <code>app_id</code>, runs:</p>
+</li>
+<li>
+<p><code>extract</code> (via <code>process_app_workspace</code>)</p>
+</li>
+<li><code>generate-va</code> (counting VA method files)</li>
+<li><code>build-skills</code></li>
+<li><code>build-intents</code> (unless <code>--skip-intents</code> is set)</li>
+<li><code>actionplan</code></li>
+</ul>
+<h3 id="example-output_6">Example output<a class="headerlink" href="#example-output_6" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-text">[AVA-Gen] Running full pipeline for app_id=hu.vmiklos.plees_tracker
+[AVA-Gen] Parsing test scripts...
+[AVA-Gen] 12 test methods extracted
+
+[AVA-Gen] Generating VA methods...
+[AVA-Gen] 5 VA methods created
+
+[AVA-Gen] Building JSON skill descriptions...
+[AVA-Gen] workspace/skills_description/hu.vmiklos.plees_tracker_skills_description.json written
+
+[AVA-Gen] Building global intent artifacts...
+[AVA-Gen] workspace/intent/intent_list_full.json written
+[AVA-Gen] workspace/intent/intent_method_map.json written
+
+[AVA-Gen] Building ActionPlans...
+[AVA-Gen] Action plans written to: workspace/actionplan/hu.vmiklos.plees_tracker_actionplan.json
+
+[AVA-Gen] All artifacts ready for runtime
+[AVA-Gen] Next step: start the VA runtime server
+[AVA-Gen]     uvicorn runtime.api.server:app --reload</code></pre>
+<p>If <code>--skip-intents</code> is used:</p>
+<pre class="highlight"><code class="language-text">[AVA-Gen] Building global intent artifacts... (skipped)</code></pre>
+<hr />
+<h2 id="7-starting-the-runtime-server">7. Starting the runtime server<a class="headerlink" href="#7-starting-the-runtime-server" title="Permanent link">&para;</a></h2>
+<p>After running the CLI pipeline (either via individual commands or <code>pipeline</code>),
+the VA-Gen runtime server can be started separately:</p>
+<pre class="highlight"><code class="language-bash">uvicorn runtime.api.server:app --reload</code></pre>
+<p>The server will then use:</p>
+<ul>
+<li><code>workspace/skills_description/</code> for skills/contexts</li>
+<li><code>workspace/intent/intent_list_full.json</code> and <code>intent_method_map.json</code> for
+  intent validation</li>
+<li><code>workspace/actionplan/&lt;app_id&gt;_actionplan.json</code> for ActionPlans</li>
+</ul>
+<p>You can interact with the server using tools like Postman or your Android
+client.</p></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>
