@@ -49,3 +49,11 @@ See the `docs/` directory (used by MkDocs) for:
 - `docs/running_example.md` – concrete running example on the real workspace.
 - `docs/cli.md` – CLI usage and pipeline overview.
 - `docs/runtime_server_client.md` – runtime usage.
+
+## AVA-Gen Android Client
+
+Please follow the `docs/runtime_server_client.md` to set up the client.
+If interested, the src file of demo Android Client can be download: 
+You can download the demo Android Client source code here:
+[**Download Android Client Source (Google Drive)**](https://drive.google.com/file/d/1o-YsYNEt4Uxe9NMD19DQ31-hCGt-Wnbv/view?usp=drive_link)
+
