@@ -1,0 +1,29 @@
+site_name: AVA-Gen
+site_description: An Automated Voice Assistant Generation Framework from GUI Test Cases Reusing
+site_url: https://nontestname.github.io/ava-gen/
+
+docs_dir: docs
+
+nav:
+  - Home: index.md
+  - Running Example: running_example.md
+  - Runtime Server & Client: runtime_server_client.md
+  - CLI Guide: cli.md
+  - Tool Paper & Evaluation: tool_paper.md
+
+repo_url: https://github.com/nontestname/ava-gen
+repo_name: GitHub # label next to the icon (optional)
+edit_uri: ''
+
+theme:
+  name: cinder
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - codehilite:
+      guess_lang: false
+      linenums: false
+  - pymdownx.highlight
+  - pymdownx.superfences

@@ -1,0 +1,21 @@
+{
+    "app_id": "com.flauschcode.broccoli",
+    "context_methods": {
+        "addRecipe": {
+            "description-short": "Add a new recipe",
+            "description-detail": "Adds a new recipe titled \"Fry Rice\" with \"Rice\" as the ingredient to the app\\'s recipe list."
+        },
+        "configureSeasonalCalendar": {
+            "description-short": "Set regional and language preferences",
+            "description-detail": "Sets the app\\'s region to North America and language to English for personalized seasonal recipe content."
+        },
+        "accessSupportPage": {
+            "description-short": "Navigate to support page",
+            "description-detail": "Navigates the user to the app\\'s support page via the navigation drawer."
+        },
+        "addCategory": {
+            "description-short": "Add a new category named Lunch",
+            "description-detail": "Adds a new category named \"Lunch\" to the app\\'s category list."
+        }
+    }
+}

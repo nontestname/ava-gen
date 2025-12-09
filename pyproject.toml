@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ava-gen"
+version = "0.1.0"
+description = "AVA-Gen: convert Espresso UI tests into VA methods, skill descriptions, and runtime artifacts."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "AVA-Gen Contributors" },
+]
+dependencies = [
+  "openai>=1.0.0",
+  "python-dotenv>=1.0.0",
+  "pydantic>=1.10",
+  "fastapi>=0.110",
+  "uvicorn[standard]>=0.20",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+]
+
+[project.scripts]
+ava-gen = "cli.main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["cli*", "core*", "runtime*", "exceptions*", "configs*"]
+

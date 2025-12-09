@@ -1,0 +1,306 @@
+{
+  "app_id": "com.futsch1.medtimer",
+  "action_plans": {
+    "accessAnalysisData": {
+      "method_name": "accessAnalysisData",
+      "steps": [
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "statisticsFragment",
+              "mode": "equalsIgnoreCase"
+            },
+            {
+              "type": "contentDescription",
+              "value": "Analysis",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"statisticsFragment\"), withContentDescription(\"Analysis\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "timeSpinner",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"timeSpinner\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "text1",
+              "mode": "equalsIgnoreCase"
+            },
+            {
+              "type": "text",
+              "value": "30 days",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"30 days\"), withId(\"text1\"), withParentIndex(5)"
+        }
+      ]
+    },
+    "addNewMedicine": {
+      "method_name": "addNewMedicine",
+      "steps": [
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "medicinesFragment",
+              "mode": "equalsIgnoreCase"
+            },
+            {
+              "type": "contentDescription",
+              "value": "Medicine",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"medicinesFragment\"), withContentDescription(\"Medicine\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "addMedicine",
+              "mode": "equalsIgnoreCase"
+            },
+            {
+              "type": "text",
+              "value": "Add medicine",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"addMedicine\"), withText(\"Add medicine\")"
+        },
+        {
+          "action": "input",
+          "matchers": [],
+          "text": "Claritin",
+          "millis": null,
+          "node_query": "withClassName(containsStringIgnoringCase(\"EditText\"))"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "button1",
+              "mode": "equalsIgnoreCase"
+            },
+            {
+              "type": "text",
+              "value": "OK",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"button1\"), withText(\"OK\")"
+        }
+      ]
+    },
+    "updateOverviewDisplayEvents": {
+      "method_name": "updateOverviewDisplayEvents",
+      "steps": [
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "overviewFragment",
+              "mode": "equalsIgnoreCase"
+            },
+            {
+              "type": "contentDescription",
+              "value": "Overview",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"overviewFragment\"), withContentDescription(\"Overview\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "contentDescription",
+              "value": "More options",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withContentDescription(\"More options\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "text",
+              "value": "Settings",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"Settings\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "title",
+              "mode": "equalsIgnoreCase"
+            },
+            {
+              "type": "text",
+              "value": "Overview display events",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"Overview display events\"), withId(\"title\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "text1",
+              "mode": "equalsIgnoreCase"
+            },
+            {
+              "type": "text",
+              "value": "7 days",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"7 days\"), withId(\"text1\")"
+        }
+      ]
+    },
+    "clearEvents": {
+      "method_name": "clearEvents",
+      "steps": [
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "overviewFragment",
+              "mode": "equalsIgnoreCase"
+            },
+            {
+              "type": "contentDescription",
+              "value": "Overview",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"overviewFragment\"), withContentDescription(\"Overview\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "contentDescription",
+              "value": "More options",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withContentDescription(\"More options\")"
+        },
+        {
+          "action": "sleep",
+          "matchers": [],
+          "text": null,
+          "millis": 1000,
+          "node_query": null
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "text",
+              "value": "Event data",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"Event data\")"
+        },
+        {
+          "action": "sleep",
+          "matchers": [],
+          "text": null,
+          "millis": 1000,
+          "node_query": null
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "text",
+              "value": "Clear events",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"Clear events\")"
+        },
+        {
+          "action": "sleep",
+          "matchers": [],
+          "text": null,
+          "millis": 1000,
+          "node_query": null
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "text",
+              "value": "YES",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"YES\")"
+        }
+      ]
+    }
+  }
+}

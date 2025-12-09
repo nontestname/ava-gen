@@ -1,0 +1,60 @@
+{
+    "app_id": "hu.vmiklos.plees_tracker",
+    "context_methods": {
+        "checkSleepLengthGraphs": {
+            "description": "Select a graph option in the UI.",
+            "parameters": [
+                "SleepDataGraphType"
+            ],
+            "parameters-description": {
+                "SleepDataGraphType": "Type of sleep data graph to display"
+            },
+            "pre-defined-parameters": {
+                "SleepDataGraphType": [
+                    "Length",
+                    "Deficit/surplus",
+                    "Start time",
+                    "Stop time",
+                    "Rating",
+                    "Variance"
+                ]
+            }
+        },
+        "accessStatistics": {
+            "description": "Navigate to the app's \"Statistics\" section.",
+            "parameters": [],
+            "parameters-description": {},
+            "pre-defined-parameters": {}
+        },
+        "startSleep": {
+            "description": "Simulate delay, then click \"Start\" button.",
+            "parameters": [],
+            "parameters-description": {},
+            "pre-defined-parameters": {}
+        },
+        "updateReportDuration": {
+            "description": "Set report duration in settings menu.",
+            "parameters": [
+                "ReportDuration"
+            ],
+            "parameters-description": {
+                "ReportDuration": "Time period for report duration selection"
+            },
+            "pre-defined-parameters": {
+                "ReportDuration": [
+                    "Last month",
+                    "Last week",
+                    "Last two weeks",
+                    "Last year",
+                    "All time"
+                ]
+            }
+        },
+        "deleteAllSleeps": {
+            "description": "Automate UI deletion of all sleep data.",
+            "parameters": [],
+            "parameters-description": {},
+            "pre-defined-parameters": {}
+        }
+    }
+}

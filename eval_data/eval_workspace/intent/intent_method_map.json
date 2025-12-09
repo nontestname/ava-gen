@@ -1,0 +1,52 @@
+{
+  "com.faltenreich.diaguard": {
+    "Open monthly weight statistics": "accessStatistics",
+    "Navigates to the statistics section to display the user\\'s monthly weight data overview.": "accessStatistics",
+    "Navigate to vibration settings": "disableReminderVibration",
+    "Navigates to settings to disable the app\\'s reminder vibration feature for user notifications.": "disableReminderVibration",
+    "Change weight measurement unit": "changeWeightUnit",
+    "Changes the app\\'s weight measurement unit to pounds in the user settings.": "changeWeightUnit",
+    "Add a new food entry": "addNewFood",
+    "Adds a new food item named \"mushroom\" to the app\\'s food database for tracking nutrition.": "addNewFood"
+  },
+  "hu.vmiklos.plees_tracker": {
+    "Open statistics view in app": "accessStatistics",
+    "Navigates the app to open the sleep statistics screen for viewing tracked sleep data summaries.": "accessStatistics",
+    "Initiate sleep tracking session": "startSleep",
+    "Starts a new sleep session by triggering the app\\'s sleep tracking to begin after a short delay.": "startSleep",
+    "Set sleep report duration filter": "updateReportDuration",
+    "Sets the sleep report duration filter to show data from the last month in the app\\'s settings.": "updateReportDuration",
+    "Deletes all recorded sleep entries": "deleteAllSleeps",
+    "Deletes all recorded sleep entries after user confirmation, effectively clearing the entire sleep history.": "deleteAllSleeps"
+  },
+  "com.flauschcode.broccoli": {
+    "Add a new recipe": "addRecipe",
+    "Adds a new recipe titled \"Fry Rice\" with \"Rice\" as the ingredient to the app\\'s recipe list.": "addRecipe",
+    "Set regional and language preferences": "configureSeasonalCalendar",
+    "Sets the app\\'s region to North America and language to English for personalized seasonal recipe content.": "configureSeasonalCalendar",
+    "Navigate to support page": "accessSupportPage",
+    "Navigates the user to the app\\'s support page via the navigation drawer.": "accessSupportPage",
+    "Add a new category named Lunch": "addCategory",
+    "Adds a new category named \"Lunch\" to the app\\'s category list.": "addCategory"
+  },
+  "org.totschnig.myexpenses": {
+    "Open archive page": "accessArchivePage",
+    "Navigates the app to open the Archive page by selecting the \"More options\" menu and then \"Archive\".": "accessArchivePage",
+    "Add a new expense entry": "addNewExpense",
+    "Adds a new expense entry with a fixed amount of 20 to the user\\'s expense list.": "addNewExpense",
+    "Switch app theme to light": "changeTheme",
+    "Changes the app\\'s display theme to the light mode through the settings menu.": "changeTheme",
+    "Switch to a different account": "switchingAccount",
+    "Switches the user to a different account by navigating to the next account view.": "switchingAccount"
+  },
+  "com.futsch1.medtimer": {
+    "Select and view 30-day analysis data": "accessAnalysisData",
+    "Navigates to the analysis section and sets the data view to display statistics from the past 30 days.": "accessAnalysisData",
+    "Add a new medicine record": "addNewMedicine",
+    "Adds a new medicine named \"Claritin\" to the user\\'s medicine list in the app.": "addNewMedicine",
+    "Change overview display event period": "updateOverviewDisplayEvents",
+    "Navigates app settings to update the overview display events timeframe to the past 7 days.": "updateOverviewDisplayEvents",
+    "Clear all stored event data": "clearEvents",
+    "Clears all stored event data from the app after user confirmation.": "clearEvents"
+  }
+}

@@ -1,0 +1,21 @@
+{
+    "app_id": "hu.vmiklos.plees_tracker",
+    "context_methods": {
+        "accessStatistics": {
+            "description-short": "Open statistics view in app",
+            "description-detail": "Navigates the app to open the sleep statistics screen for viewing tracked sleep data summaries."
+        },
+        "startSleep": {
+            "description-short": "Initiate sleep tracking session",
+            "description-detail": "Starts a new sleep session by triggering the app\\'s sleep tracking to begin after a short delay."
+        },
+        "updateReportDuration": {
+            "description-short": "Set sleep report duration filter",
+            "description-detail": "Sets the sleep report duration filter to show data from the last month in the app\\'s settings."
+        },
+        "deleteAllSleeps": {
+            "description-short": "Deletes all recorded sleep entries",
+            "description-detail": "Deletes all recorded sleep entries after user confirmation, effectively clearing the entire sleep history."
+        }
+    }
+}

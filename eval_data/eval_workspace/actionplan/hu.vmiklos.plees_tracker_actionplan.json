@@ -1,0 +1,208 @@
+{
+  "app_id": "hu.vmiklos.plees_tracker",
+  "action_plans": {
+    "accessStatistics": {
+      "method_name": "accessStatistics",
+      "steps": [
+        {
+          "action": "sleep",
+          "matchers": [],
+          "text": null,
+          "millis": 1000,
+          "node_query": null
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "contentDescription",
+              "value": "More options",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withContentDescription(\"More options\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "title",
+              "mode": "equalsIgnoreCase"
+            },
+            {
+              "type": "text",
+              "value": "Statistics",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"Statistics\"), withId(\"title\")"
+        }
+      ]
+    },
+    "startSleep": {
+      "method_name": "startSleep",
+      "steps": [
+        {
+          "action": "sleep",
+          "matchers": [],
+          "text": null,
+          "millis": 2000,
+          "node_query": null
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "start_stop_text",
+              "mode": "equalsIgnoreCase"
+            },
+            {
+              "type": "text",
+              "value": "Start",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"start_stop_text\"), withText(\"Start\")"
+        },
+        {
+          "action": "sleep",
+          "matchers": [],
+          "text": null,
+          "millis": 2000,
+          "node_query": null
+        }
+      ]
+    },
+    "updateReportDuration": {
+      "method_name": "updateReportDuration",
+      "steps": [
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "contentDescription",
+              "value": "More options",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withContentDescription(\"More options\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "title",
+              "mode": "equalsIgnoreCase"
+            },
+            {
+              "type": "text",
+              "value": "Settings",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"Settings\"), withId(\"title\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "title",
+              "mode": "equalsIgnoreCase"
+            },
+            {
+              "type": "text",
+              "value": "Duration",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"Duration\"), withId(\"title\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "text",
+              "value": "Last month",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"Last month\")"
+        }
+      ]
+    },
+    "deleteAllSleeps": {
+      "method_name": "deleteAllSleeps",
+      "steps": [
+        {
+          "action": "sleep",
+          "matchers": [],
+          "text": null,
+          "millis": 1000,
+          "node_query": null
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "contentDescription",
+              "value": "More options",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withContentDescription(\"More options\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "text",
+              "value": "Delete All Sleep",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"Delete All Sleep\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "button1",
+              "mode": "equalsIgnoreCase"
+            },
+            {
+              "type": "text",
+              "value": "YES",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"YES\"), withId(\"button1\")"
+        }
+      ]
+    }
+  }
+}

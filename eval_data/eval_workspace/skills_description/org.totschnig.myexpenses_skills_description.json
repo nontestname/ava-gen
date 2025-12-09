@@ -1,0 +1,21 @@
+{
+    "app_id": "org.totschnig.myexpenses",
+    "context_methods": {
+        "accessArchivePage": {
+            "description-short": "Open archive page",
+            "description-detail": "Navigates the app to open the Archive page by selecting the \"More options\" menu and then \"Archive\"."
+        },
+        "addNewExpense": {
+            "description-short": "Add a new expense entry",
+            "description-detail": "Adds a new expense entry with a fixed amount of 20 to the user\\'s expense list."
+        },
+        "changeTheme": {
+            "description-short": "Switch app theme to light",
+            "description-detail": "Changes the app\\'s display theme to the light mode through the settings menu."
+        },
+        "switchingAccount": {
+            "description-short": "Switch to a different account",
+            "description-detail": "Switches the user to a different account by navigating to the next account view."
+        }
+    }
+}

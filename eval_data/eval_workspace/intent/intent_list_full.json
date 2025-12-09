@@ -1,0 +1,72 @@
+[
+  {
+    "app_id": "com.faltenreich.diaguard",
+    "intents": [
+      "Open monthly weight statistics",
+      "Navigates to the statistics section to display the user\\'s monthly weight data overview.",
+      "Navigate to vibration settings",
+      "Navigates to settings to disable the app\\'s reminder vibration feature for user notifications.",
+      "Change weight measurement unit",
+      "Changes the app\\'s weight measurement unit to pounds in the user settings.",
+      "Add a new food entry",
+      "Adds a new food item named \"mushroom\" to the app\\'s food database for tracking nutrition."
+    ],
+    "intent_summary": "The assistant helps manage weight statistics, adjust settings, change weight units, and add new food entries for tracking."
+  },
+  {
+    "app_id": "com.flauschcode.broccoli",
+    "intents": [
+      "Add a new recipe",
+      "Adds a new recipe titled \"Fry Rice\" with \"Rice\" as the ingredient to the app\\'s recipe list.",
+      "Set regional and language preferences",
+      "Sets the app\\'s region to North America and language to English for personalized seasonal recipe content.",
+      "Navigate to support page",
+      "Navigates the user to the app\\'s support page via the navigation drawer.",
+      "Add a new category named Lunch",
+      "Adds a new category named \"Lunch\" to the app\\'s category list."
+    ],
+    "intent_summary": "The assistant helps users add recipes and categories, set regional language preferences, and access the app’s support page."
+  },
+  {
+    "app_id": "com.futsch1.medtimer",
+    "intents": [
+      "Select and view 30-day analysis data",
+      "Navigates to the analysis section and sets the data view to display statistics from the past 30 days.",
+      "Add a new medicine record",
+      "Adds a new medicine named \"Claritin\" to the user\\'s medicine list in the app.",
+      "Change overview display event period",
+      "Navigates app settings to update the overview display events timeframe to the past 7 days.",
+      "Clear all stored event data",
+      "Clears all stored event data from the app after user confirmation."
+    ],
+    "intent_summary": "The assistant helps manage medicine records, view and customize analysis data, and clear stored event information in the app."
+  },
+  {
+    "app_id": "hu.vmiklos.plees_tracker",
+    "intents": [
+      "Open statistics view in app",
+      "Navigates the app to open the sleep statistics screen for viewing tracked sleep data summaries.",
+      "Initiate sleep tracking session",
+      "Starts a new sleep session by triggering the app\\'s sleep tracking to begin after a short delay.",
+      "Set sleep report duration filter",
+      "Sets the sleep report duration filter to show data from the last month in the app\\'s settings.",
+      "Deletes all recorded sleep entries",
+      "Deletes all recorded sleep entries after user confirmation, effectively clearing the entire sleep history."
+    ],
+    "intent_summary": "The assistant helps users track sleep, view sleep statistics, filter reports, and delete all recorded sleep data."
+  },
+  {
+    "app_id": "org.totschnig.myexpenses",
+    "intents": [
+      "Open archive page",
+      "Navigates the app to open the Archive page by selecting the \"More options\" menu and then \"Archive\".",
+      "Add a new expense entry",
+      "Adds a new expense entry with a fixed amount of 20 to the user\\'s expense list.",
+      "Switch app theme to light",
+      "Changes the app\\'s display theme to the light mode through the settings menu.",
+      "Switch to a different account",
+      "Switches the user to a different account by navigating to the next account view."
+    ],
+    "intent_summary": "The assistant can help manage expenses, switch accounts, change the app theme, and access the archive page."
+  }
+]

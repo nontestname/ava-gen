@@ -1,0 +1,299 @@
+{
+  "app_id": "com.faltenreich.diaguard",
+  "action_plans": {
+    "accessStatistics": {
+      "method_name": "accessStatistics",
+      "steps": [
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "contentDescription",
+              "value": "Open Navigator",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withContentDescription(\"Open Navigator\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "nav_statistics",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"nav_statistics\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "category_spinner",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"category_spinner\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "text1",
+              "mode": "containsIgnoreCase"
+            },
+            {
+              "type": "text",
+              "value": "Weight",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"text1\"), withText(\"Weight\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "interval_spinner",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"interval_spinner\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "text1",
+              "mode": "containsIgnoreCase"
+            },
+            {
+              "type": "text",
+              "value": "Month",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"text1\"), withText(\"Month\")"
+        }
+      ]
+    },
+    "disableReminderVibration": {
+      "method_name": "disableReminderVibration",
+      "steps": [
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "contentDescription",
+              "value": "Open Navigator",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withContentDescription(\"Open Navigator\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "nav_settings",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"nav_settings\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "text",
+              "value": "Vibration",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"Vibration\")"
+        }
+      ]
+    },
+    "changeWeightUnit": {
+      "method_name": "changeWeightUnit",
+      "steps": [
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "contentDescription",
+              "value": "Open Navigator",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withContentDescription(\"Open Navigator\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "nav_settings",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"nav_settings\")"
+        },
+        {
+          "action": "scrollDown",
+          "matchers": [],
+          "text": null,
+          "millis": null,
+          "node_query": null
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "text",
+              "value": "Units",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"Units\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "text",
+              "value": "Weight",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"Weight\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "text",
+              "value": "Pound",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"Pound\")"
+        }
+      ]
+    },
+    "addNewFood": {
+      "method_name": "addNewFood",
+      "steps": [
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "contentDescription",
+              "value": "Open Navigator",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withContentDescription(\"Open Navigator\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "nav_food_database",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"nav_food_database\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "fab_primary",
+              "mode": "containsIgnoreCase"
+            },
+            {
+              "type": "contentDescription",
+              "value": "New entry",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"fab_primary\"), withContentDescription(\"New entry\")"
+        },
+        {
+          "action": "input",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "edit_text",
+              "mode": "containsIgnoreCase"
+            },
+            {
+              "type": "text",
+              "value": "Name",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": "mushroom",
+          "millis": null,
+          "node_query": "withId(\"edit_text\"), withText(\"Name\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "fab_primary",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"fab_primary\")"
+        }
+      ]
+    }
+  }
+}

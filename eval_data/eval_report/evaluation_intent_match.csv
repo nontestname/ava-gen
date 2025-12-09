@@ -1,0 +1,101 @@
+app_id,method_name,accuracy_level,user_request_example,server_decision_method,server_decision_message
+com.faltenreich.diaguard,accessStatistics,0,Show me my weight statistics.,accessStatistics,Open monthly weight statistics
+com.faltenreich.diaguard,accessStatistics,0.25,Show me my weight statistics for each month.,accessStatistics,Navigates to the statistics section and displays the user\'s weight data summarized by month.
+com.faltenreich.diaguard,accessStatistics,0.5,Show me my weight statistics for each month.,accessStatistics,Navigates to the statistics section and displays the user\'s weight data summarized by month.
+com.faltenreich.diaguard,accessStatistics,0.75,Show me my weight statistics for each month.,accessStatistics,Navigates to the statistics section and displays the user\'s weight data summarized by month.
+com.faltenreich.diaguard,accessStatistics,1,Show me my monthly weight statistics.,accessStatistics,Open monthly weight statistics
+com.faltenreich.diaguard,disableReminderVibration,0,Can you help me change the vibration settings for reminders?,disableReminderVibration,Navigate to vibration settings
+com.faltenreich.diaguard,disableReminderVibration,0.25,Can you help me turn off the vibration for reminders in the app settings?,disableReminderVibration,Navigate to vibration settings
+com.faltenreich.diaguard,disableReminderVibration,0.5,Please take me to the settings where I can turn off the vibration for reminders.,disableReminderVibration,Navigate to vibration settings
+com.faltenreich.diaguard,disableReminderVibration,0.75,Please take me to the settings where I can turn off the vibration for reminder notifications.,disableReminderVibration,Navigate to vibration settings
+com.faltenreich.diaguard,disableReminderVibration,1,Please take me to the settings to turn off the reminder vibration for notifications in the app.,disableReminderVibration,Navigate to vibration settings
+com.faltenreich.diaguard,changeWeightUnit,0,Can you change the weight unit for me?,changeWeightUnit,Change weight measurement unit
+com.faltenreich.diaguard,changeWeightUnit,0.25,Can you switch the weight unit from pounds to something else in my settings?,changeWeightUnit,Change weight measurement unit
+com.faltenreich.diaguard,changeWeightUnit,0.5,Can you change the weight unit from pounds to kilograms in my settings?,changeWeightUnit,Change weight measurement unit
+com.faltenreich.diaguard,changeWeightUnit,0.75,Can you change the weight unit from pounds to kilograms in my settings?,changeWeightUnit,Change weight measurement unit
+com.faltenreich.diaguard,changeWeightUnit,1,Please change the weight measurement unit in my settings from pounds to kilograms.,changeWeightUnit,Change weight measurement unit
+com.faltenreich.diaguard,addNewFood,0,Can you help me add a new food to my list?,addNewFood,Add a new food entry
+com.faltenreich.diaguard,addNewFood,0.25,Please add a new food called mushroom to my list.,addNewFood,Add a new food entry
+com.faltenreich.diaguard,addNewFood,0.5,Please add a new food item called mushroom to my food list.,addNewFood,Add a new food entry
+com.faltenreich.diaguard,addNewFood,0.75,Please add a new food item called mushroom to my food list.,addNewFood,Add a new food entry
+com.faltenreich.diaguard,addNewFood,1,"Please add a new food entry called ""mushroom"" to my food database.",addNewFood,Add a new food entry
+com.flauschcode.broccoli,addRecipe,0,Can you help me add a new recipe to my list?,addRecipe,Add a new recipe
+com.flauschcode.broccoli,addRecipe,0.25,Can you add a recipe for fried rice with rice as the main ingredient?,,"I recognized your intent, but I could not map it to a concrete action. Please double-check the intent→method configuration."
+com.flauschcode.broccoli,addRecipe,0.5,Please add a recipe called Fry Rice with rice as the ingredient.,,"I recognized your intent, but I could not map it to a concrete action. Please double-check the intent→method configuration."
+com.flauschcode.broccoli,addRecipe,0.75,Please add a recipe called Fry Rice with Rice as the ingredient.,,"I recognized your intent, but I could not map it to a concrete action. Please double-check the intent→method configuration."
+com.flauschcode.broccoli,addRecipe,1,"Please add a new recipe called ""Fry Rice"" with ""Rice"" as the ingredient.",,"I recognized your intent, but I could not map it to a concrete action. Please double-check the intent→method configuration."
+com.flauschcode.broccoli,configureSeasonalCalendar,0,Can you update my settings for region and language?,configureSeasonalCalendar,Set regional and language preferences
+com.flauschcode.broccoli,configureSeasonalCalendar,0.25,Can you set my app to use English and show seasonal recipes for North America?,,"I recognized your intent, but I could not map it to a concrete action. Please double-check the intent→method configuration."
+com.flauschcode.broccoli,configureSeasonalCalendar,0.5,Can you set my region to North America and language to English for the seasonal recipes?,,"I recognized your intent, but I could not map it to a concrete action. Please double-check the intent→method configuration."
+com.flauschcode.broccoli,configureSeasonalCalendar,0.75,Can you set my app region to North America and language to English for seasonal recipes?,,"I recognized your intent, but I could not map it to a concrete action. Please double-check the intent→method configuration."
+com.flauschcode.broccoli,configureSeasonalCalendar,1,Please set the app’s region to North America and the language to English for my seasonal recipe preferences.,,"I recognized your intent, but I could not map it to a concrete action. Please double-check the intent→method configuration."
+com.flauschcode.broccoli,accessSupportPage,0,I need some help with the app.,accessSupportPage,Navigate to support page
+com.flauschcode.broccoli,accessSupportPage,0.25,Can you take me to the support page in the app?,accessSupportPage,Navigate to support page
+com.flauschcode.broccoli,accessSupportPage,0.5,Can you open the support page from the navigation menu?,accessSupportPage,Navigate to support page
+com.flauschcode.broccoli,accessSupportPage,0.75,Can you open the support page from the navigation menu?,,"I recognized your intent, but I could not map it to a concrete action. Please double-check the intent→method configuration."
+com.flauschcode.broccoli,accessSupportPage,1,Please open the support page from the navigation drawer.,,"I recognized your intent, but I could not map it to a concrete action. Please double-check the intent→method configuration."
+com.flauschcode.broccoli,addCategory,0,Can you help me organize my categories better?,,No intent matches organizing categories in the allowed intents list.
+com.flauschcode.broccoli,addCategory,0.25,Can you add a new category called Lunch for me?,addCategory,Add a new category named Lunch
+com.flauschcode.broccoli,addCategory,0.5,Can you add a new category called Lunch to my list?,addCategory,Add a new category named Lunch
+com.flauschcode.broccoli,addCategory,0.75,Please add a new category called Lunch to my list.,addCategory,Add a new category named Lunch
+com.flauschcode.broccoli,addCategory,1,Please add a new category called Lunch to my list.,addCategory,Add a new category named Lunch
+com.futsch1.medtimer,accessAnalysisData,0,Show me some recent stats.,accessAnalysisData,Navigates to the analysis section and filters data to show statistics for the past 30 days.
+com.futsch1.medtimer,accessAnalysisData,0.25,Show me the stats for the last month.,accessAnalysisData,Navigates to the analysis section and filters data to show statistics for the past 30 days.
+com.futsch1.medtimer,accessAnalysisData,0.5,Show me the analysis for the last month.,accessAnalysisData,Navigates to the analysis section and filters data to show statistics for the past 30 days.
+com.futsch1.medtimer,accessAnalysisData,0.75,Show me the analysis for the last 30 days.,accessAnalysisData,Navigates to the analysis section and filters data to show statistics for the past 30 days.
+com.futsch1.medtimer,accessAnalysisData,1,Show me the analysis data filtered for the last 30 days.,accessAnalysisData,Navigates to the analysis section and filters data to show statistics for the past 30 days.
+com.futsch1.medtimer,addNewMedicine,0,Can you help me add a new medicine to my list?,addNewMedicine,Add a new medicine entry
+com.futsch1.medtimer,addNewMedicine,0.25,Please add a new medicine called Claritin to my list.,addNewMedicine,"Adds a new medicine named ""Claritin"" to the user\'s medicine list in the app."
+com.futsch1.medtimer,addNewMedicine,0.5,Please add Claritin to my list of medicines.,addNewMedicine,"Adds a new medicine named ""Claritin"" to the user\'s medicine list in the app."
+com.futsch1.medtimer,addNewMedicine,0.75,Please add Claritin to my list of medicines.,addNewMedicine,Add a new medicine entry
+com.futsch1.medtimer,addNewMedicine,1,Please add a new medicine called Claritin to my list.,addNewMedicine,"Adds a new medicine named ""Claritin"" to the user\'s medicine list in the app."
+com.futsch1.medtimer,updateOverviewDisplayEvents,0,Can you change the settings for how my events are shown?,updateOverviewDisplayEvents,Change overview display event timeframe
+com.futsch1.medtimer,updateOverviewDisplayEvents,0.25,Can you change the overview to show events from the last week?,updateOverviewDisplayEvents,Change overview display event timeframe
+com.futsch1.medtimer,updateOverviewDisplayEvents,0.5,Can you set the overview to show events from the last week?,updateOverviewDisplayEvents,Change overview display event timeframe
+com.futsch1.medtimer,updateOverviewDisplayEvents,0.75,Please set the overview display to show events from the last week.,updateOverviewDisplayEvents,Change overview display event timeframe
+com.futsch1.medtimer,updateOverviewDisplayEvents,1,Please update the overview display to show events from the past 7 days.,,"I recognized your intent, but I could not map it to a concrete action. Please double-check the intent→method configuration."
+com.futsch1.medtimer,clearEvents,0,Please clear all my saved events.,clearEvents,Clear all stored event data
+com.futsch1.medtimer,clearEvents,0.25,Please delete all my saved events from the app.,clearEvents,Clear all stored event data
+com.futsch1.medtimer,clearEvents,0.5,Please delete all my saved events from the app.,clearEvents,Clear all stored event data
+com.futsch1.medtimer,clearEvents,0.75,Please clear all my saved events from the app.,clearEvents,Clear all stored event data
+com.futsch1.medtimer,clearEvents,1,Please clear all my stored event data from the app.,clearEvents,Clear all stored event data
+hu.vmiklos.plees_tracker,accessStatistics,0,Show me my sleep data.,accessStatistics,Open sleep statistics view
+hu.vmiklos.plees_tracker,accessStatistics,0.25,Can you show me the sleep statistics?,accessStatistics,Open sleep statistics view
+hu.vmiklos.plees_tracker,accessStatistics,0.5,Show me the sleep statistics.,accessStatistics,Open sleep statistics view
+hu.vmiklos.plees_tracker,accessStatistics,0.75,Show me the sleep statistics so I can see my tracked sleep data.,accessStatistics,Navigates the app to open the sleep statistics screen for viewing tracked sleep data summaries.
+hu.vmiklos.plees_tracker,accessStatistics,1,Show me the sleep statistics screen.,accessStatistics,Navigates the app to open the sleep statistics screen for viewing tracked sleep data summaries.
+hu.vmiklos.plees_tracker,startSleep,0,Start tracking my sleep.,startSleep,Initiate sleep tracking session
+hu.vmiklos.plees_tracker,startSleep,0.25,Start tracking my sleep now.,startSleep,Initiate sleep tracking session
+hu.vmiklos.plees_tracker,startSleep,0.5,Start tracking my sleep now.,startSleep,Initiate sleep tracking session
+hu.vmiklos.plees_tracker,startSleep,0.75,Start tracking my sleep session now.,startSleep,Initiate sleep tracking session
+hu.vmiklos.plees_tracker,startSleep,1,Start a new sleep tracking session for me.,startSleep,Initiate sleep tracking session
+hu.vmiklos.plees_tracker,updateReportDuration,0,Show me my sleep data for the past month.,updateReportDuration,Set sleep report duration filter
+hu.vmiklos.plees_tracker,updateReportDuration,0.25,Show me my sleep data from the past month.,updateReportDuration,Set sleep report duration filter
+hu.vmiklos.plees_tracker,updateReportDuration,0.5,Show me my sleep report for the past month.,updateReportDuration,Set sleep report duration filter
+hu.vmiklos.plees_tracker,updateReportDuration,0.75,Show me my sleep data from the past month.,updateReportDuration,Set sleep report duration filter
+hu.vmiklos.plees_tracker,updateReportDuration,1,Please set the sleep report duration filter to show data from the last month.,updateReportDuration,Set sleep report duration filter
+hu.vmiklos.plees_tracker,deleteAllSleeps,0,Please clear all my sleep data.,deleteAllSleeps,Deletes all recorded sleep entries
+hu.vmiklos.plees_tracker,deleteAllSleeps,0.25,Please delete all my sleep records.,deleteAllSleeps,Deletes all recorded sleep entries
+hu.vmiklos.plees_tracker,deleteAllSleeps,0.5,Please delete all my sleep records from the app.,deleteAllSleeps,Deletes all recorded sleep entries
+hu.vmiklos.plees_tracker,deleteAllSleeps,0.75,Please delete all my sleep records from the app.,deleteAllSleeps,Deletes all recorded sleep entries
+hu.vmiklos.plees_tracker,deleteAllSleeps,1,Please delete all my recorded sleep entries and clear my entire sleep history.,deleteAllSleeps,Deletes all recorded sleep entries
+org.totschnig.myexpenses,accessArchivePage,0,Show me the archive.,accessArchivePage,Open archive page
+org.totschnig.myexpenses,accessArchivePage,0.25,Can you take me to the archive section in the app?,accessArchivePage,Open archive page
+org.totschnig.myexpenses,accessArchivePage,0.5,Can you open the Archive page from the More options menu?,accessArchivePage,"Navigates the app to open the Archive page by selecting the ""More options"" menu and then ""Archive""."
+org.totschnig.myexpenses,accessArchivePage,0.75,Please open the Archive page from the More options menu.,accessArchivePage,"Navigates the app to open the Archive page by selecting the ""More options"" menu and then ""Archive""."
+org.totschnig.myexpenses,accessArchivePage,1,Please open the Archive page by going to the More options menu and selecting Archive.,accessArchivePage,"Navigates the app to open the Archive page by selecting the ""More options"" menu and then ""Archive""."
+org.totschnig.myexpenses,addNewExpense,0,I need to add a new expense.,addNewExpense,Add a new expense entry
+org.totschnig.myexpenses,addNewExpense,0.25,Add a new expense to my records.,addNewExpense,Add a new expense entry
+org.totschnig.myexpenses,addNewExpense,0.5,Please add a new expense entry for me.,addNewExpense,Add a new expense entry
+org.totschnig.myexpenses,addNewExpense,0.75,Please add a new expense entry to my records.,addNewExpense,Add a new expense entry
+org.totschnig.myexpenses,addNewExpense,1,Please add a new expense entry by triggering the add expense action twice with a delay.,addNewExpense,Add a new expense entry
+org.totschnig.myexpenses,changeTheme,0,Can you help me change how the app looks?,changeTheme,Navigate to theme settings
+org.totschnig.myexpenses,changeTheme,0.25,Can you help me change the look of the app?,changeTheme,Navigate to theme settings
+org.totschnig.myexpenses,changeTheme,0.5,Can you take me to the settings where I can change the app’s theme?,changeTheme,Navigate to theme settings
+org.totschnig.myexpenses,changeTheme,0.75,Can you open the settings so I can change the app’s theme?,changeTheme,Navigate to theme settings
+org.totschnig.myexpenses,changeTheme,1,Open the app settings and take me to the theme options so I can change the interface appearance.,changeTheme,Navigate to theme settings
+org.totschnig.myexpenses,switchingAccount,0,Can you change the account I'm using?,switchingAccount,Switch user account
+org.totschnig.myexpenses,switchingAccount,0.25,Can you switch to a different account for me?,switchingAccount,Switch user account
+org.totschnig.myexpenses,switchingAccount,0.5,Can you switch to a different account for me?,switchingAccount,Switch user account
+org.totschnig.myexpenses,switchingAccount,0.75,Can you switch to a different user account for me?,switchingAccount,Switch user account
+org.totschnig.myexpenses,switchingAccount,1,Please switch to a different user account.,switchingAccount,Switch user account

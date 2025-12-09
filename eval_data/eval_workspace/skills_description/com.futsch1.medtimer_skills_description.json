@@ -1,0 +1,21 @@
+{
+    "app_id": "com.futsch1.medtimer",
+    "context_methods": {
+        "accessAnalysisData": {
+            "description-short": "Select and view 30-day analysis data",
+            "description-detail": "Navigates to the analysis section and sets the data view to display statistics from the past 30 days."
+        },
+        "addNewMedicine": {
+            "description-short": "Add a new medicine record",
+            "description-detail": "Adds a new medicine named \"Claritin\" to the user\\'s medicine list in the app."
+        },
+        "updateOverviewDisplayEvents": {
+            "description-short": "Change overview display event period",
+            "description-detail": "Navigates app settings to update the overview display events timeframe to the past 7 days."
+        },
+        "clearEvents": {
+            "description-short": "Clear all stored event data",
+            "description-detail": "Clears all stored event data from the app after user confirmation."
+        }
+    }
+}

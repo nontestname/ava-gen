@@ -1,0 +1,16 @@
+[
+  {
+    "app_id": "hu.vmiklos.plees_tracker",
+    "intents": [
+      "Open sleep statistics view",
+      "Opens the app\\'s statistics section to view summarized sleep data and averages.",
+      "Initiate sleep tracking session",
+      "Starts a new sleep session by initiating the app\\'s sleep tracking after a brief delay.",
+      "Set sleep report duration filter",
+      "Sets the sleep report duration filter to display data from the last month in the app\\'s settings.",
+      "Deletes all recorded sleep entries",
+      "Deletes all recorded sleep entries after user confirmation, effectively clearing the entire sleep history."
+    ],
+    "intent_summary": "The assistant helps users track sleep, view and filter sleep statistics, and delete all recorded sleep data."
+  }
+]

@@ -1,0 +1,320 @@
+{
+  "app_id": "com.flauschcode.broccoli",
+  "action_plans": {
+    "addRecipe": {
+      "method_name": "addRecipe",
+      "steps": [
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "fab_recipes",
+              "mode": "containsIgnoreCase"
+            },
+            {
+              "type": "contentDescription",
+              "value": "New Recipe",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"fab_recipes\"), withContentDescription(\"New Recipe\")"
+        },
+        {
+          "action": "input",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "new_title",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": "Fry Rice",
+          "millis": null,
+          "node_query": "withId(\"new_title\")"
+        },
+        {
+          "action": "input",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "new_ingredients",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": "Rice",
+          "millis": null,
+          "node_query": "withId(\"new_ingredients\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "button_save_recipe",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"button_save_recipe\")"
+        }
+      ]
+    },
+    "configureSeasonalCalendar": {
+      "method_name": "configureSeasonalCalendar",
+      "steps": [
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "contentDescription",
+              "value": "Open navigation drawer",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withContentDescription(\"Open navigation drawer\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "nav_settings",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"nav_settings\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "title",
+              "mode": "containsIgnoreCase"
+            },
+            {
+              "type": "text",
+              "value": "Region",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"title\"), withText(\"Region\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "text1",
+              "mode": "containsIgnoreCase"
+            },
+            {
+              "type": "text",
+              "value": "North America (warmer)",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"text1\"), withText(\"North America (warmer)\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "title",
+              "mode": "containsIgnoreCase"
+            },
+            {
+              "type": "text",
+              "value": "Languages of recipes",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"title\"), withText(\"Languages of recipes\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "text",
+              "value": "English",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withParentIndex(0), withText(\"English\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "text",
+              "value": "OK",
+              "mode": "containsIgnoreCase"
+            },
+            {
+              "type": "id",
+              "value": "button1",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"OK\"), withId(\"button1\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "contentDescription",
+              "value": "Open navigation drawer",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withContentDescription(\"Open navigation drawer\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "nav_seasons",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"nav_seasons\")"
+        }
+      ]
+    },
+    "accessSupportPage": {
+      "method_name": "accessSupportPage",
+      "steps": [
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "contentDescription",
+              "value": "Open navigation drawer",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withContentDescription(\"Open navigation drawer\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "nav_support",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"nav_support\")"
+        }
+      ]
+    },
+    "addCategory": {
+      "method_name": "addCategory",
+      "steps": [
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "contentDescription",
+              "value": "Open navigation drawer",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withContentDescription(\"Open navigation drawer\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "nav_categories",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"nav_categories\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "fab_categories",
+              "mode": "containsIgnoreCase"
+            },
+            {
+              "type": "contentDescription",
+              "value": "Add category",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"fab_categories\"), withContentDescription(\"Add category\")"
+        },
+        {
+          "action": "input",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "category_name",
+              "mode": "containsIgnoreCase"
+            }
+          ],
+          "text": "Lunch",
+          "millis": null,
+          "node_query": "withId(\"category_name\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "button1",
+              "mode": "containsIgnoreCase"
+            },
+            {
+              "type": "text",
+              "value": "Save",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"button1\"), withText(equalsIgnoreCase(\"Save\"))"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+    "app_id": "com.faltenreich.diaguard",
+    "context_methods": {
+        "accessStatistics": {
+            "description-short": "Open monthly weight statistics",
+            "description-detail": "Navigates to the statistics section to display the user\\'s monthly weight data overview."
+        },
+        "disableReminderVibration": {
+            "description-short": "Navigate to vibration settings",
+            "description-detail": "Navigates to settings to disable the app\\'s reminder vibration feature for user notifications."
+        },
+        "changeWeightUnit": {
+            "description-short": "Change weight measurement unit",
+            "description-detail": "Changes the app\\'s weight measurement unit to pounds in the user settings."
+        },
+        "addNewFood": {
+            "description-short": "Add a new food entry",
+            "description-detail": "Adds a new food item named \"mushroom\" to the app\\'s food database for tracking nutrition."
+        }
+    }
+}

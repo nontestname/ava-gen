@@ -1,0 +1,177 @@
+{
+  "app_id": "org.totschnig.myexpenses",
+  "action_plans": {
+    "accessArchivePage": {
+      "method_name": "accessArchivePage",
+      "steps": [
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "contentDescription",
+              "value": "More options",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withContentDescription(\"More options\")"
+        },
+        {
+          "action": "sleep",
+          "matchers": [],
+          "text": null,
+          "millis": 1500,
+          "node_query": null
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "text",
+              "value": "Archive",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"Archive\")"
+        },
+        {
+          "action": "sleep",
+          "matchers": [],
+          "text": null,
+          "millis": 1500,
+          "node_query": null
+        }
+      ]
+    },
+    "addNewExpense": {
+      "method_name": "addNewExpense",
+      "steps": [
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "fab",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"fab\")"
+        },
+        {
+          "action": "sleep",
+          "matchers": [],
+          "text": null,
+          "millis": 1000,
+          "node_query": null
+        },
+        {
+          "action": "input",
+          "matchers": [],
+          "text": "20",
+          "millis": null,
+          "node_query": "withId(\"AmountEditText\"), withParent(withId(\"Amount\"), hasDescendant(withId(\"TaType\")))"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "id",
+              "value": "fab",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withId(\"fab\")"
+        }
+      ]
+    },
+    "changeTheme": {
+      "method_name": "changeTheme",
+      "steps": [
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "contentDescription",
+              "value": "More options",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withContentDescription(\"More options\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "text",
+              "value": "Settings",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"Settings\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "text",
+              "value": "User interface",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"User interface\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "text",
+              "value": "Theme",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"Theme\")"
+        },
+        {
+          "action": "click",
+          "matchers": [
+            {
+              "type": "text",
+              "value": "Light",
+              "mode": "equalsIgnoreCase"
+            }
+          ],
+          "text": null,
+          "millis": null,
+          "node_query": "withText(\"Light\")"
+        }
+      ]
+    },
+    "switchingAccount": {
+      "method_name": "switchingAccount",
+      "steps": [
+        {
+          "action": "swipeLeft",
+          "matchers": [],
+          "text": null,
+          "millis": null,
+          "node_query": null
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,3 @@
+    public void switchingAccount() {
+        performSwipeLeft();
+    }
