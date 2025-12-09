@@ -1,4 +1,4 @@
-# AVA-Gen
+# AVA-Gen: An Automated Voice Assistant Generation Framework from GUI Test Cases Reusing
 
 AVA-Gen is an automated tool including two parts:
 
